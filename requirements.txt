@@ -17,10 +17,6 @@ google-generativeai
 pandas
 prophet
 plotly
-sentence-transformers
-chromadb
-langchain-community
-biopython
-requests
 scikit-learn
 numpy
+requests
