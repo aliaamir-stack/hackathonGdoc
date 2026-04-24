@@ -1,14 +1,23 @@
 """
-Telegram Emergency Alert Service — Send GPS emergency notifications.
+WhatsApp Emergency Alert Service — Send GPS emergency notifications.
 
-Sends formatted emergency alert messages via Telegram bot
-with GPS coordinates, Google Maps link, situation description,
-and contact information.
+Sends formatted emergency alert messages via WhatsApp
+using the CallMeBot free API with GPS coordinates,
+Google Maps link, and situation description.
+
+Setup (one-time):
+1. Save the number +34 644 31 22 77 in your phone contacts
+2. Send "I allow callmebot to send me messages" to that number on WhatsApp
+3. Wait for the confirmation and API key
+4. Add your phone number and API key to .env
 """
 
 import logging
 from datetime import datetime, timezone
 from typing import Optional
+from urllib.parse import quote
+
+import httpx
 
 from m5_features.config import settings
 from m5_features.models.emergency_models import EmergencyAlertResponse
@@ -16,9 +25,9 @@ from m5_features.models.emergency_models import EmergencyAlertResponse
 logger = logging.getLogger(__name__)
 
 
-class TelegramAlertService:
+class WhatsAppAlertService:
     """
-    Telegram bot-based emergency alert service.
+    WhatsApp-based emergency alert service via CallMeBot API.
 
     Sends emergency notifications with:
     - GPS coordinates
@@ -28,23 +37,25 @@ class TelegramAlertService:
     - Timestamp
     """
 
+    CALLMEBOT_URL = "https://api.callmebot.com/whatsapp.php"
+
     def __init__(self):
-        """Initialize with bot token and chat ID from config."""
-        self.bot_token = settings.TELEGRAM_BOT_TOKEN
-        self.chat_id = settings.TELEGRAM_CHAT_ID
-        self._configured = bool(self.bot_token and self.chat_id)
+        """Initialize with phone number and API key from config."""
+        self.phone_number = settings.WHATSAPP_PHONE
+        self.api_key = settings.WHATSAPP_API_KEY
+        self._configured = bool(self.phone_number and self.api_key)
 
         if self._configured:
-            logger.info("Telegram alert service configured")
+            logger.info("WhatsApp alert service configured")
         else:
             logger.warning(
-                "Telegram not configured — "
-                "TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID required"
+                "WhatsApp not configured — "
+                "WHATSAPP_PHONE and WHATSAPP_API_KEY required"
             )
 
     @property
     def is_configured(self) -> bool:
-        """Check if Telegram service is properly configured."""
+        """Check if WhatsApp service is properly configured."""
         return self._configured
 
     def _build_google_maps_link(
@@ -62,9 +73,9 @@ class TelegramAlertService:
         contact_phone: Optional[str] = None,
     ) -> str:
         """
-        Format the emergency alert message for Telegram.
+        Format the emergency alert message for WhatsApp.
 
-        Uses Telegram markdown formatting for readability.
+        Uses plain text formatting (WhatsApp supports *bold*).
         """
         maps_link = self._build_google_maps_link(latitude, longitude)
         timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -73,9 +84,9 @@ class TelegramAlertService:
             "🚨 *EMERGENCY ALERT — PULSE* 🚨",
             "",
             f"📍 *Location:*",
-            f"   Lat: `{latitude:.6f}`",
-            f"   Lng: `{longitude:.6f}`",
-            f"   [Open in Google Maps]({maps_link})",
+            f"   Lat: {latitude:.6f}",
+            f"   Lng: {longitude:.6f}",
+            f"   📌 {maps_link}",
             "",
             f"⚠️ *Situation:*",
             f"   {situation}",
@@ -91,8 +102,7 @@ class TelegramAlertService:
             "",
             f"🕐 *Time:* {timestamp}",
             "",
-            "⚡ *This alert was sent automatically by PULSE*",
-            "⚡ *AI-Powered Community Health Intelligence Network*",
+            "⚡ _Sent by PULSE — AI Health Intelligence Network_",
         ])
 
         return "\n".join(message_parts)
@@ -106,7 +116,10 @@ class TelegramAlertService:
         contact_phone: Optional[str] = None,
     ) -> EmergencyAlertResponse:
         """
-        Send an emergency alert message via Telegram.
+        Send an emergency alert message via WhatsApp.
+
+        Uses CallMeBot free API to deliver WhatsApp messages
+        without needing a business account or paid service.
 
         Args:
             latitude: GPS latitude of the emergency
@@ -124,20 +137,18 @@ class TelegramAlertService:
         )
 
         if not self._configured:
-            logger.warning("Telegram not configured — alert not sent")
+            logger.warning("WhatsApp not configured — alert not sent")
             return EmergencyAlertResponse(
                 sent=False,
                 message=(
-                    "Telegram alert service not configured. "
-                    "Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID."
+                    "WhatsApp alert service not configured. "
+                    "Set WHATSAPP_PHONE and WHATSAPP_API_KEY in .env"
                 ),
                 google_maps_link=maps_link,
                 timestamp=timestamp,
             )
 
         try:
-            import httpx
-
             # Format message
             message = self._format_alert_message(
                 latitude=latitude,
@@ -147,50 +158,54 @@ class TelegramAlertService:
                 contact_phone=contact_phone,
             )
 
-            # Send via Telegram Bot API
-            url = f"https://api.telegram.org/bot{self.bot_token}/sendMessage"
-            payload = {
-                "chat_id": self.chat_id,
-                "text": message,
-                "parse_mode": "Markdown",
-                "disable_web_page_preview": False,
-            }
+            # URL-encode the message for CallMeBot API
+            encoded_message = quote(message)
 
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(url, json=payload)
+            # Send via CallMeBot WhatsApp API
+            url = (
+                f"{self.CALLMEBOT_URL}"
+                f"?phone={self.phone_number}"
+                f"&text={encoded_message}"
+                f"&apikey={self.api_key}"
+            )
+
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                response = await client.get(url)
 
                 if response.status_code == 200:
-                    result = response.json()
-                    if result.get("ok"):
+                    response_text = response.text.lower()
+                    if "message queued" in response_text or "sent" in response_text:
                         logger.info(
-                            f"Emergency alert sent successfully to chat {self.chat_id}"
+                            f"Emergency alert sent via WhatsApp to {self.phone_number}"
                         )
-
-                        # Also send location pin
-                        await self._send_location(
-                            client, latitude, longitude
-                        )
-
                         return EmergencyAlertResponse(
                             sent=True,
-                            message="Emergency alert sent via Telegram",
+                            message="Emergency alert sent via WhatsApp",
                             google_maps_link=maps_link,
                             timestamp=timestamp,
                         )
 
                 logger.error(
-                    f"Telegram API error: {response.status_code} — "
-                    f"{response.text}"
+                    f"CallMeBot API error: {response.status_code} — "
+                    f"{response.text[:200]}"
                 )
                 return EmergencyAlertResponse(
                     sent=False,
-                    message=f"Telegram API error: {response.status_code}",
+                    message=f"WhatsApp API error: {response.status_code}",
                     google_maps_link=maps_link,
                     timestamp=timestamp,
                 )
 
+        except httpx.TimeoutException:
+            logger.error("WhatsApp alert request timed out")
+            return EmergencyAlertResponse(
+                sent=False,
+                message="WhatsApp alert timed out — try again",
+                google_maps_link=maps_link,
+                timestamp=timestamp,
+            )
         except Exception as e:
-            logger.error(f"Failed to send Telegram alert: {e}")
+            logger.error(f"Failed to send WhatsApp alert: {e}")
             return EmergencyAlertResponse(
                 sent=False,
                 message=f"Alert failed: {str(e)}",
@@ -198,30 +213,6 @@ class TelegramAlertService:
                 timestamp=timestamp,
             )
 
-    async def _send_location(
-        self,
-        client,
-        latitude: float,
-        longitude: float,
-    ) -> None:
-        """
-        Send a location pin to the Telegram chat.
-
-        This appears as a clickable map pin in Telegram,
-        making it easy for the recipient to get directions.
-        """
-        try:
-            url = f"https://api.telegram.org/bot{self.bot_token}/sendLocation"
-            payload = {
-                "chat_id": self.chat_id,
-                "latitude": latitude,
-                "longitude": longitude,
-            }
-            await client.post(url, json=payload)
-            logger.info("Location pin sent to Telegram")
-        except Exception as e:
-            logger.warning(f"Failed to send location pin: {e}")
-
 
 # Singleton instance
-telegram_alert_service = TelegramAlertService()
+whatsapp_alert_service = WhatsAppAlertService()
