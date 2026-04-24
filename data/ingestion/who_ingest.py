@@ -31,7 +31,12 @@ def ingest_who_rss():
             description = item.findtext('description', '')
             link = item.findtext('link', '')
             
-            alerts.append({"title": title, "description": description, "link": link})
+            alerts.append({
+                "title": title, 
+                "description": description, 
+                "source": "who_rss",
+                "raw_data": {"link": link}
+            })
             texts.append(f"Title: {title}\nDescription: {description}")
             metadatas.append({"source": "WHO", "link": link})
             ids.append(link)
@@ -41,9 +46,29 @@ def ingest_who_rss():
             return
             
         print(f"Parsed {len(alerts)} items. Inserting into Supabase...")
+        print("Checking for existing alerts in Supabase...")
         try:
-            res = supabase.table("outbreak_alerts").insert(alerts).execute()
-            print(f"Inserted {len(res.data)} alerts into Supabase.")
+            existing = supabase.table("outbreak_alerts").select("raw_data").eq("source", "who_rss").execute()
+            existing_links = set()
+            for row in existing.data:
+                rd = row.get("raw_data")
+                if isinstance(rd, dict) and "link" in rd:
+                    existing_links.add(rd["link"])
+                elif isinstance(rd, str) and '"link"' in rd:
+                    # Quick hack if it's stored as unparsed string
+                    import json
+                    try:
+                        existing_links.add(json.loads(rd).get("link"))
+                    except:
+                        pass
+            
+            new_alerts = [a for a in alerts if a["raw_data"]["link"] not in existing_links]
+            
+            if new_alerts:
+                res = supabase.table("outbreak_alerts").insert(new_alerts).execute()
+                print(f"Inserted {len(res.data)} new alerts into Supabase.")
+            else:
+                print("No new alerts to insert into Supabase.")
         except Exception as e:
             print(f"Error inserting to Supabase: {e}")
             

@@ -1,7 +1,7 @@
 import os
 import sys
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -20,7 +20,7 @@ SYMPTOMS = ["fever", "dengue-like", "GI", "respiratory"]
 def seed_reports(total: int = 300):
     print(f"Generating {total} mock symptom reports...")
     reports = []
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     
     for _ in range(total):
         r = random.random()
@@ -29,13 +29,15 @@ def seed_reports(total: int = 300):
         else: city = CITIES[2]
             
         reports.append({
-            "lat": random.uniform(*city["lat_range"]),
-            "lng": random.uniform(*city["lng_range"]),
-            "symptom_type": random.choice(SYMPTOMS),
-            "urgency": random.randint(1, 5),
-            "timestamp": (now - timedelta(days=random.uniform(0, 3))).isoformat()
+            "latitude": random.uniform(*city["lat_range"]),
+            "longitude": random.uniform(*city["lng_range"]),
+            "symptoms": [random.choice(SYMPTOMS)],
+            "urgency_level": random.randint(1, 5),
+            "created_at": (now - timedelta(days=random.uniform(0, 3))).isoformat()
         })
         
+    print("Clearing existing seed reports to prevent duplicates...")
+    supabase.table("symptom_reports").delete().neq("id", "00000000-0000-0000-0000-000000000000").execute()
     print("Inserting into Supabase...")
     batch_size = 100
     total_inserted = 0

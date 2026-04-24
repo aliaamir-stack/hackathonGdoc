@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS facilities (
     lat DOUBLE PRECISION NOT NULL,
     lng DOUBLE PRECISION NOT NULL,
     address TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE (name, lat, lng)
 );
 
 -- 4. ICD-10 Codes Table
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS outbreak_alerts (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title TEXT NOT NULL,
     description TEXT,
-    link TEXT,
+    link TEXT UNIQUE,
     pub_date TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

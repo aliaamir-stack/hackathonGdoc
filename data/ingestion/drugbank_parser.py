@@ -34,12 +34,15 @@ def load_drug_interactions():
         records = df[['drug_a', 'drug_b', 'description']].to_dict(orient="records")
         print(f"Loaded {len(records)} interaction pairs from CSV.")
         
+        print("Clearing existing drug interactions to prevent duplicates...")
+        supabase.table("drug_interactions").delete().neq("id", "00000000-0000-0000-0000-000000000000").execute()
+        
         batch_size = 1000
         total_inserted = 0
         for i in range(0, len(records), batch_size):
             batch = records[i:i+batch_size]
             try:
-                response = supabase.table("drug_interactions").upsert(batch, on_conflict="drug_a,drug_b").execute()
+                response = supabase.table("drug_interactions").insert(batch).execute()
                 total_inserted += len(response.data)
                 print(f"Inserted {total_inserted}/{len(records)}...")
             except Exception as e:
