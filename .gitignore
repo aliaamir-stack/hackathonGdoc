@@ -2,6 +2,7 @@
 .env
 .env.local
 .env.*.local
+backend/.env
 
 # Python cache
 __pycache__/
@@ -20,6 +21,10 @@ ENV/
 # ChromaDB local data
 chroma_db/
 chroma.log
+
+# Database
+pulse.db
+celerybeat-schedule
 
 # Test outputs
 test_triage_output.pdf

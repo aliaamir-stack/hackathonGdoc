@@ -1,8 +1,29 @@
+# === AI / ML ===
 sentence-transformers
 chromadb
 langchain-community
+google-generativeai
+prophet
+plotly
+
+# === Data ===
 biopython
 requests
 pandas
+feedparser
+
+# === Backend ===
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
 supabase
+redis
+celery
+python-jose[cryptography]
+pydantic[v2]
+pydantic-settings
+httpx
 python-dotenv
+slowapi
+websockets

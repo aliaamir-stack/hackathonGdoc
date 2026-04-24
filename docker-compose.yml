@@ -1,0 +1,69 @@
+version: '3'
+services:
+  api:
+    build: .
+    command: uvicorn backend.app:app --host 0.0.0.0 --port 8000
+    working_dir: /app/backend
+    volumes:
+      - .:/app/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - backend/.env
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/postgtres
+      - REDIS_URL=redis://redis:6379/0
+
+  celery-worker:
+    build: .   
+    command: celery -A backend.tasks.anomaly_tasks worker --loglevel=info --concurrency=2
+    working_dir: /app/backend
+    volumes:
+      - .:/app/backend
+    depends_on:
+      - redis
+    restart: always
+    env_file:
+      - backend/.env
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/postgtres
+      - REDIS_URL=redis://redis:6379/0
+
+  celery-beat:
+    build: .   
+    command: celery -A backend.tasks.anomaly_tasks beat --loglevel=info
+    working_dir: /app/backend
+    volumes:
+      - .:/app/backend
+    depends_on:
+      - celery-worker
+      - redis
+    restart: always
+    env_file:
+      - backend/.env
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/postgtres
+      - REDIS_URL=redis://redis:6379/0
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+
+  db:
+    image: postgres:17.0
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgtres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
