@@ -22,6 +22,7 @@ load_dotenv()
 
 CHROMA_HOST = os.getenv("CHROMA_HOST", "localhost")
 CHROMA_PORT = int(os.getenv("CHROMA_PORT", 8001))
+CHROMA_PATH = os.getenv("CHROMA_PATH", "./backend/chroma_db")
 COLLECTION_NAME = "medical_facts"
 TOP_K_CHUNKS = 5
 
@@ -47,7 +48,15 @@ class MedFactVerifier:
         print("[MedFactVerifier] Loading SentenceTransformer model...")
         self._embedder = SentenceTransformer("all-MiniLM-L6-v2")
         print("[MedFactVerifier] Connecting to ChromaDB...")
-        self._chroma = chromadb.HttpClient(host=CHROMA_HOST, port=CHROMA_PORT)
+        # Use PersistentClient for direct local access (faster, no HTTP needed)
+        # Falls back to HttpClient if CHROMA_PATH not found
+        import os as _os
+        if _os.path.exists(CHROMA_PATH):
+            self._chroma = chromadb.PersistentClient(path=CHROMA_PATH)
+            print("[MedFactVerifier] Using PersistentClient at " + CHROMA_PATH)
+        else:
+            self._chroma = chromadb.HttpClient(host=CHROMA_HOST, port=CHROMA_PORT)
+            print("[MedFactVerifier] Using HttpClient at " + CHROMA_HOST + ":" + str(CHROMA_PORT))
         self._collection = self._get_or_create_collection()
         print("[MedFactVerifier] Ready. Collection '" + COLLECTION_NAME + "' has " + str(self._collection.count()) + " chunks.")
 

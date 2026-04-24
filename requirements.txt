@@ -1,0 +1,8 @@
+sentence-transformers
+chromadb
+langchain-community
+biopython
+requests
+pandas
+supabase
+python-dotenv
