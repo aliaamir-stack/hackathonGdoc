@@ -2,7 +2,7 @@
 PULSE — Member 5 Features API Server.
 
 FastAPI application that serves the Medicine Scanner,
-Emergency First Aid Guide, and Telegram Emergency Alert endpoints.
+Emergency First Aid Guide, and WhatsApp Emergency Alert endpoints.
 
 Run with: uvicorn m5_features.main:app --reload --port 8000
 """
@@ -28,7 +28,7 @@ app = FastAPI(
     title="PULSE — M5 Features API",
     description=(
         "AI-Powered Community Health Intelligence Network. "
-        "Medicine Scanner · Emergency First Aid Guide · Telegram Alert. "
+        "Medicine Scanner · Emergency First Aid Guide · WhatsApp Alert. "
         "Member 5 — Features Engineer module."
     ),
     version="1.0.0",
@@ -65,7 +65,7 @@ async def root():
         "features": [
             "Medicine Scanner (OCR + Vision AI + OpenFDA)",
             "Emergency First Aid Guide (15 protocols + voice matching)",
-            "Telegram Emergency Alert (GPS + Google Maps)",
+            "WhatsApp Emergency Alert (GPS + Google Maps)",
         ],
         "docs": "/docs",
         "health": "/health",
@@ -82,7 +82,7 @@ async def health_check():
     """
     from m5_features.ai.gemini_client import gemini_client
     from m5_features.emergency.protocol_matcher import protocol_matcher
-    from m5_features.emergency.telegram_alert import telegram_alert_service
+    from m5_features.emergency.whatsapp_alert import whatsapp_alert_service
 
     # Check configuration
     missing_vars = settings.validate()
@@ -95,8 +95,8 @@ async def health_check():
                 "configured": gemini_client.is_configured,
                 "model": settings.GEMINI_MODEL_VISION,
             },
-            "telegram": {
-                "configured": telegram_alert_service.is_configured,
+            "whatsapp": {
+                "configured": whatsapp_alert_service.is_configured,
             },
             "protocols": {
                 "loaded": len(protocol_matcher.protocols),
@@ -135,7 +135,7 @@ async def startup_event():
     logger.info("PULSE M5 Features API starting...")
     logger.info(f"Environment: {settings.ENVIRONMENT}")
     logger.info(f"Gemini configured: {bool(settings.GEMINI_API_KEY)}")
-    logger.info(f"Telegram configured: {bool(settings.TELEGRAM_BOT_TOKEN)}")
+    logger.info(f"WhatsApp configured: {bool(settings.WHATSAPP_PHONE)}")
 
     from m5_features.emergency.protocol_matcher import protocol_matcher
     logger.info(f"Protocols loaded: {len(protocol_matcher.protocols)}")

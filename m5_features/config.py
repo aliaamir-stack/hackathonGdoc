@@ -29,9 +29,9 @@ class Settings:
     GEMINI_MODEL_VISION: str = os.getenv("GEMINI_MODEL_VISION", "gemini-1.5-flash")
     GEMINI_MODEL_TEXT: str = os.getenv("GEMINI_MODEL_TEXT", "gemini-1.5-flash")
 
-    # --- Telegram ---
-    TELEGRAM_BOT_TOKEN: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "")
+    # --- WhatsApp (CallMeBot) ---
+    WHATSAPP_PHONE: str = os.getenv("WHATSAPP_PHONE", "")
+    WHATSAPP_API_KEY: str = os.getenv("WHATSAPP_API_KEY", "")
 
     # --- OCR ---
     TESSERACT_PATH: str = os.getenv(
@@ -65,10 +65,10 @@ class Settings:
         missing = []
         if not cls.GEMINI_API_KEY:
             missing.append("GEMINI_API_KEY")
-        if not cls.TELEGRAM_BOT_TOKEN:
-            missing.append("TELEGRAM_BOT_TOKEN")
-        if not cls.TELEGRAM_CHAT_ID:
-            missing.append("TELEGRAM_CHAT_ID")
+        if not cls.WHATSAPP_PHONE:
+            missing.append("WHATSAPP_PHONE")
+        if not cls.WHATSAPP_API_KEY:
+            missing.append("WHATSAPP_API_KEY")
         return missing
 
     @classmethod

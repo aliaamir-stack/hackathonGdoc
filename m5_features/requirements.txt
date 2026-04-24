@@ -1,6 +1,6 @@
 # ============================================================
 # PULSE — Member 5 (Features Engineer) Dependencies
-# Medicine Scanner · Emergency Guide · Telegram Alert
+# Medicine Scanner · Emergency Guide · WhatsApp Alert
 # ============================================================
 
 # --- Core Framework ---
@@ -17,11 +17,8 @@ opencv-python==4.10.0.84
 pytesseract==0.3.13
 Pillow==10.4.0
 
-# --- HTTP Client (async) ---
+# --- HTTP Client (async — also used for WhatsApp alerts) ---
 httpx==0.27.2
-
-# --- Telegram Bot ---
-python-telegram-bot==21.6
 
 # --- Testing ---
 pytest==8.3.3
