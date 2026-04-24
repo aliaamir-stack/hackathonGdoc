@@ -1,0 +1,18 @@
+{
+  "id": "diabetic_emergency",
+  "title": "Diabetic Emergency (Hypo/Hyperglycemia)",
+  "category": "metabolic",
+  "severity_level": 4,
+  "call_ambulance": true,
+  "trigger_phrases": ["diabetic emergency", "low blood sugar", "hypoglycemia", "high blood sugar", "diabetic coma", "sugar low", "insulin reaction", "diabetic unconscious", "sugar crash", "glucose emergency"],
+  "immediate_action": "If conscious: give sugar immediately. If unconscious: recovery position + call emergency.",
+  "steps": [
+    { "step_number": 1, "instruction": "Check if the person is conscious and can swallow safely.", "tip": "Ask: 'Are you diabetic? When did you last eat? Did you take your insulin?'", "timer_seconds": 10 },
+    { "step_number": 2, "instruction": "If conscious and LOW blood sugar (shaky, sweaty, confused, pale): Give fast-acting sugar — glucose tablets, fruit juice, regular soda, candy, or sugar dissolved in water.", "tip": "15 grams of sugar: 3-4 glucose tablets, 1/2 cup juice, or 1 tablespoon of sugar.", "timer_seconds": 30 },
+    { "step_number": 3, "instruction": "Wait 15 minutes, then check if symptoms improve. If not improving, give another dose of sugar.", "tip": "Follow the Rule of 15: 15g sugar, wait 15 minutes, repeat if needed.", "timer_seconds": 900 },
+    { "step_number": 4, "instruction": "If unconscious: Do NOT give anything by mouth. Place in recovery position. Call emergency services. Check for medical alert bracelet.", "tip": "If they have a glucagon kit, follow the instructions to inject. Otherwise wait for paramedics.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "Monitor breathing. If breathing stops, begin CPR. Keep them warm.", "tip": "Diabetic emergencies can deteriorate quickly. Do not leave them alone.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Person recovers and blood sugar normalizes", "Emergency services arrive"],
+  "do_not": ["Do NOT give insulin for low blood sugar — it will make it worse", "Do NOT give food/drink to unconscious person", "Do NOT assume it's just drunkenness — check for medical ID"]
+}
