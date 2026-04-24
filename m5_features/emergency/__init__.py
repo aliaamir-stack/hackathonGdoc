@@ -1,1 +1,1 @@
-# Emergency module — Protocol matching and WhatsApp alerts
+# Emergency module — Protocol matching and Email alerts

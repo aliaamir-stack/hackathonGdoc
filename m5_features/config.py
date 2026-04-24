@@ -29,9 +29,10 @@ class Settings:
     GEMINI_MODEL_VISION: str = os.getenv("GEMINI_MODEL_VISION", "gemini-1.5-flash")
     GEMINI_MODEL_TEXT: str = os.getenv("GEMINI_MODEL_TEXT", "gemini-1.5-flash")
 
-    # --- WhatsApp (CallMeBot) ---
-    WHATSAPP_PHONE: str = os.getenv("WHATSAPP_PHONE", "")
-    WHATSAPP_API_KEY: str = os.getenv("WHATSAPP_API_KEY", "")
+    # --- Email Alert (Gmail SMTP) ---
+    ALERT_EMAIL: str = os.getenv("ALERT_EMAIL", "")
+    ALERT_EMAIL_PASSWORD: str = os.getenv("ALERT_EMAIL_PASSWORD", "")
+    ALERT_RECIPIENT_EMAIL: str = os.getenv("ALERT_RECIPIENT_EMAIL", "")
 
     # --- OCR ---
     TESSERACT_PATH: str = os.getenv(
@@ -65,10 +66,10 @@ class Settings:
         missing = []
         if not cls.GEMINI_API_KEY:
             missing.append("GEMINI_API_KEY")
-        if not cls.WHATSAPP_PHONE:
-            missing.append("WHATSAPP_PHONE")
-        if not cls.WHATSAPP_API_KEY:
-            missing.append("WHATSAPP_API_KEY")
+        if not cls.ALERT_EMAIL:
+            missing.append("ALERT_EMAIL")
+        if not cls.ALERT_EMAIL_PASSWORD:
+            missing.append("ALERT_EMAIL_PASSWORD")
         return missing
 
     @classmethod

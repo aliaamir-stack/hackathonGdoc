@@ -3,7 +3,7 @@ Emergency Guide API Routes — FastAPI endpoints for emergency protocols.
 
 Endpoints:
 - POST /api/emergency/identify — Match voice/text to emergency protocol
-- POST /api/emergency/alert — Send WhatsApp GPS emergency alert
+- POST /api/emergency/alert — Send Email GPS emergency alert
 - GET  /api/emergency/protocols — List all available protocols
 - GET  /api/emergency/protocols/{id} — Get specific protocol details
 """
@@ -21,7 +21,7 @@ from m5_features.models.emergency_models import (
     ProtocolStep,
 )
 from m5_features.emergency.protocol_matcher import protocol_matcher
-from m5_features.emergency.whatsapp_alert import whatsapp_alert_service
+from m5_features.emergency.email_alert import email_alert_service
 
 logger = logging.getLogger(__name__)
 
@@ -104,17 +104,17 @@ async def identify_emergency(
 @router.post(
     "/alert",
     response_model=EmergencyAlertResponse,
-    summary="Send emergency WhatsApp alert with GPS",
+    summary="Send emergency email alert with GPS",
     description=(
-        "Sends an emergency alert message via WhatsApp "
+        "Sends an emergency alert email via Gmail "
         "with GPS coordinates, Google Maps link, and situation description."
     ),
 )
 async def send_alert(request: EmergencyAlertRequest) -> EmergencyAlertResponse:
     """
-    Send emergency GPS alert via WhatsApp.
+    Send emergency GPS alert via Email.
 
-    Sends a formatted message to the configured WhatsApp number
+    Sends a formatted HTML email to the configured recipient
     with the emergency location, situation description, and
     a Google Maps link for navigation.
     """
@@ -124,7 +124,7 @@ async def send_alert(request: EmergencyAlertRequest) -> EmergencyAlertResponse:
     )
 
     try:
-        result = await whatsapp_alert_service.send_emergency_alert(
+        result = await email_alert_service.send_emergency_alert(
             latitude=request.latitude,
             longitude=request.longitude,
             situation=request.situation,
@@ -134,7 +134,7 @@ async def send_alert(request: EmergencyAlertRequest) -> EmergencyAlertResponse:
         return result
 
     except Exception as e:
-        logger.error(f"WhatsApp alert error: {e}")
+        logger.error(f"Email alert error: {e}")
         return EmergencyAlertResponse(
             sent=False,
             message=f"Alert failed: {str(e)}",
