@@ -56,7 +56,7 @@ class OCRExtractor:
     )
     EXPIRY_PATTERN = re.compile(
         r"(?:exp(?:iry)?|best\s*before|use\s*before|bb)[:\s]*"
-        r"(\d{1,2}[/\-\.]\d{1,2}[/\-\.]\d{2,4}|\w+\s+\d{4})",
+        r"(\d{1,2}[/\-\.](?:\d{1,2}[/\-\.])?\d{2,4}|\w+\s+\d{4})",
         re.IGNORECASE,
     )
     BATCH_PATTERN = re.compile(
