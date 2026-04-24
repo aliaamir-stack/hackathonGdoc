@@ -116,7 +116,6 @@ class EmergencyAlertRequest(BaseModel):
 
 class EmergencyAlertResponse(BaseModel):
     sent: bool
-    telegram_message_id: int
 
 
 class DistrictScore(BaseModel):
