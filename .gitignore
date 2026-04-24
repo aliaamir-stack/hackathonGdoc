@@ -1,0 +1,5 @@
+.env
+backend/.env
+pulse.db
+celerybeat-schedule
+__pycache__/
