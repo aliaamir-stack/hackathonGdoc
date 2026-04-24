@@ -1,0 +1,19 @@
+{
+  "id": "heart_attack",
+  "title": "Heart Attack (Myocardial Infarction)",
+  "category": "cardiac",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["heart attack", "chest pain", "crushing chest", "chest pressure", "pain in arm", "jaw pain with chest", "shortness of breath chest", "heart pain", "angina severe", "cardiac event"],
+  "immediate_action": "Call emergency services immediately. Have person chew aspirin (300mg) if available and not allergic.",
+  "steps": [
+    { "step_number": 1, "instruction": "Call emergency services NOW. Say 'possible heart attack.' Every minute of delay damages heart muscle.", "tip": "Do NOT drive to the hospital — ambulances carry life-saving equipment and medication.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Have the person sit in a W-position: sitting up with knees bent. This eases breathing and reduces heart strain.", "tip": "Leaning slightly forward is often most comfortable. Support with pillows if available.", "timer_seconds": 10 },
+    { "step_number": 3, "instruction": "Give 1 adult aspirin (300mg) or 4 baby aspirin (75mg each). Have them CHEW it — chewing works faster than swallowing whole.", "tip": "Only give aspirin if NOT allergic and NOT already on blood thinners. Ask first.", "timer_seconds": 15 },
+    { "step_number": 4, "instruction": "Loosen tight clothing — collar, belt, tie. Keep the person calm and reassured.", "tip": "Anxiety increases heart rate and oxygen demand. Speak calmly: 'Help is on the way.'", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "If the person has nitroglycerin prescribed, help them take it as directed (under the tongue).", "tip": "Do NOT give someone else's nitroglycerin. Only use if it's prescribed to the patient.", "timer_seconds": 15 },
+    { "step_number": 6, "instruction": "Monitor breathing and consciousness. If they become unresponsive and stop breathing, begin CPR immediately.", "tip": "Be prepared — heart attacks can lead to cardiac arrest at any moment.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Paramedics arrive"],
+  "do_not": ["Do NOT let them walk or exert themselves", "Do NOT give aspirin if allergic or on blood thinners", "Do NOT ignore symptoms — women often have atypical signs (nausea, back pain, jaw pain)"]
+}
