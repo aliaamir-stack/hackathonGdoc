@@ -1,0 +1,18 @@
+{
+  "id": "allergic_reaction",
+  "title": "Severe Allergic Reaction (Anaphylaxis)",
+  "category": "allergic",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["allergic reaction", "anaphylaxis", "throat swelling", "can't breathe allergic", "hives all over", "epipen", "bee sting reaction", "food allergy severe", "face swelling", "tongue swelling"],
+  "immediate_action": "Use EpiPen if available. Call emergency services immediately.",
+  "steps": [
+    { "step_number": 1, "instruction": "Call emergency services. Say 'anaphylaxis' — they will prioritize.", "tip": "Time is critical. Anaphylaxis can be fatal within minutes.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "If the person has an EpiPen: remove the blue safety cap, press the orange tip firmly into outer thigh (through clothing is fine), hold for 10 seconds.", "tip": "You can use it even if you're not trained — it's designed for emergency use by anyone. Inject into outer mid-thigh.", "timer_seconds": 15 },
+    { "step_number": 3, "instruction": "Help the person lie down with legs elevated. If they are having trouble breathing, let them sit upright.", "tip": "If they vomit or are unconscious, place in recovery position (on their side).", "timer_seconds": 15 },
+    { "step_number": 4, "instruction": "Remove the trigger if possible (e.g., remove bee stinger by scraping sideways with a card — don't squeeze).", "tip": "Do NOT try to make them vomit if they swallowed the allergen.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "Monitor breathing. If breathing stops, begin CPR. A second EpiPen dose can be given after 5-15 minutes if symptoms don't improve.", "tip": "Note the time of EpiPen administration for paramedics.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Paramedics arrive", "Symptoms improve after EpiPen"],
+  "do_not": ["Do NOT make them sit up if dizzy (lie down, legs up)", "Do NOT give oral medications if throat is swelling", "Do NOT remove the person's EpiPen too early (hold 10 sec)"]
+}
