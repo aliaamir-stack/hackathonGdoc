@@ -1,6 +1,6 @@
 # PULSE — Member 5: Features Engineer Module
 
-> Medicine Scanner · Emergency First Aid Guide · Telegram Emergency Alert
+> Medicine Scanner · Emergency First Aid Guide · WhatsApp Emergency Alert
 
 ## 🔬 Overview
 
@@ -8,7 +8,7 @@ This module implements three core PULSE features:
 
 1. **Medicine Scanner** — Photo → OpenCV preprocessing → Tesseract OCR → Gemini Vision AI → OpenFDA lookup → Drug interaction check
 2. **Emergency First Aid Guide** — Voice transcription → Protocol matching (keyword + AI) → Step-by-step instructions with TTS
-3. **Telegram Emergency Alert** — GPS coordinates → Formatted Telegram message with Google Maps link
+3. **WhatsApp Emergency Alert** — GPS coordinates → WhatsApp message with Google Maps link (via CallMeBot API)
 
 ## 📦 Project Structure
 
@@ -35,7 +35,7 @@ m5_features/
 ├── emergency/               # Emergency guide system
 │   ├── __init__.py
 │   ├── protocol_matcher.py  # Voice → protocol matching
-│   └── telegram_alert.py    # Telegram GPS alert service
+│   └── whatsapp_alert.py   # WhatsApp GPS alert service (CallMeBot)
 │
 ├── models/                  # Pydantic v2 schemas
 │   ├── __init__.py
@@ -68,7 +68,7 @@ m5_features/
     ├── __init__.py
     ├── test_scanner.py      # Scanner pipeline tests
     ├── test_emergency.py    # Emergency guide tests
-    └── test_telegram.py     # Telegram alert tests
+    └── test_whatsapp.py     # WhatsApp alert tests
 ```
 
 ## 🚀 Quick Start
@@ -93,8 +93,8 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your values:
 # - GEMINI_API_KEY (from aistudio.google.com)
-# - TELEGRAM_BOT_TOKEN (from @BotFather)
-# - TELEGRAM_CHAT_ID (from @userinfobot)
+# - WHATSAPP_PHONE (your number with country code)
+# - WHATSAPP_API_KEY (from CallMeBot — see .env.example for setup)
 ```
 
 ### 4. Run the Server
@@ -124,7 +124,7 @@ python -m pytest tests/ -v
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/emergency/identify` | Match text to protocol |
-| `POST` | `/api/emergency/alert` | Send Telegram GPS alert |
+| `POST` | `/api/emergency/alert` | Send WhatsApp GPS alert |
 | `GET` | `/api/emergency/protocols` | List all 15 protocols |
 | `GET` | `/api/emergency/protocols/{id}` | Get specific protocol |
 | `GET` | `/api/emergency/health` | Emergency service health |
@@ -136,7 +136,7 @@ python -m pytest tests/ -v
 | AI Engine | Google Gemini 1.5 Flash (Vision + Text) |
 | OCR | Tesseract OCR + OpenCV preprocessing |
 | Drug Data | OpenFDA API (free, no key) |
-| Alerts | Telegram Bot API |
+| Alerts | WhatsApp via CallMeBot API (free) |
 | Framework | FastAPI + Pydantic v2 |
 | HTTP Client | httpx (async) |
 
