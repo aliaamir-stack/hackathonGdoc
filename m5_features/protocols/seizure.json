@@ -1,0 +1,18 @@
+{
+  "id": "seizure",
+  "title": "Seizure (Epileptic Fit)",
+  "category": "neurological",
+  "severity_level": 4,
+  "call_ambulance": true,
+  "trigger_phrases": ["seizure", "fit", "convulsion", "epilepsy", "shaking uncontrollably", "jerking movements", "eyes rolling back", "fitting", "epileptic attack", "tonic clonic"],
+  "immediate_action": "Protect from injury. Do NOT restrain. Time the seizure.",
+  "steps": [
+    { "step_number": 1, "instruction": "Clear the area around the person. Move furniture, sharp objects, and anything dangerous away.", "tip": "Protect the head — place something soft under it like a folded jacket.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "TIME the seizure. Start a timer NOW. Call emergency if it lasts more than 5 minutes.", "tip": "Seizures usually last 1-3 minutes. Over 5 minutes = status epilepticus = emergency.", "timer_seconds": 300 },
+    { "step_number": 3, "instruction": "Do NOT restrain them. Do NOT put anything in their mouth. Just protect from injury.", "tip": "They cannot swallow their tongue — this is a myth. Putting objects in mouth causes injury.", "timer_seconds": 60 },
+    { "step_number": 4, "instruction": "After the seizure stops, gently roll them into the recovery position (on their side). Check breathing.", "tip": "They will be confused and drowsy. Speak calmly. Stay with them until fully alert.", "timer_seconds": 60 },
+    { "step_number": 5, "instruction": "Call emergency services if: first seizure ever, seizure > 5 minutes, multiple seizures, injured during seizure, breathing difficulty after, or person is pregnant/diabetic.", "tip": "Note what happened before, during, and after — paramedics will need this info.", "timer_seconds": 30 }
+  ],
+  "when_to_stop": ["Seizure ends and person is breathing normally", "Emergency services arrive"],
+  "do_not": ["Do NOT restrain the person", "Do NOT put anything in their mouth", "Do NOT give food or water until fully alert", "Do NOT move them unless in danger"]
+}
