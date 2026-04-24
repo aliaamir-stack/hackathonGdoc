@@ -1,40 +1,66 @@
-# Environment variables — NEVER commit secrets
+# ============================================================
+# PULSE — .gitignore (All modules)
+# ============================================================
+
+# --- Environment variables — NEVER commit secrets ---
 .env
 .env.local
 .env.*.local
+.env.production
 backend/.env
 
-# Python cache
+# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
 *.pyo
 *.pyd
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
 
-# Virtual environments
+# --- Virtual environments ---
 venv/
 .venv/
 env/
 ENV/
 
-# ChromaDB local data
+# --- ChromaDB local data ---
 chroma_db/
 chroma.log
 
-# Database
+# --- Database ---
 pulse.db
 celerybeat-schedule
 
-# Test outputs
+# --- Test outputs ---
 test_triage_output.pdf
+.pytest_cache/
+htmlcov/
+.coverage
+*.log
 
-# OS files
+# --- Test images ---
+test_pills/*.jpg
+test_pills/*.png
+test_pills/*.jpeg
+
+# --- OS files ---
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# IDE
+# --- IDE ---
 .vscode/
 .idea/
 *.suo
 *.user
+*.swp
+*.swo
+*~
+
+# --- Docker ---
+docker-compose.override.yml

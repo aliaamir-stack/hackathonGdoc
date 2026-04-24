@@ -1,0 +1,18 @@
+{
+  "id": "stroke",
+  "title": "Stroke — FAST Assessment",
+  "category": "neurological",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["stroke", "face drooping", "arm weakness", "speech difficulty", "slurred speech", "one side numb", "sudden confusion", "FAST", "brain attack", "sudden severe headache"],
+  "immediate_action": "Call emergency services NOW. Time is brain — every minute counts.",
+  "steps": [
+    { "step_number": 1, "instruction": "FACE: Ask the person to smile. Does one side of the face droop?", "tip": "Look for uneven smile. One side may sag or feel numb.", "timer_seconds": 10 },
+    { "step_number": 2, "instruction": "ARMS: Ask them to raise both arms. Does one arm drift downward?", "tip": "If one arm drifts down or cannot be raised, this is a stroke sign.", "timer_seconds": 10 },
+    { "step_number": 3, "instruction": "SPEECH: Ask them to repeat a simple sentence. Is speech slurred or strange?", "tip": "Try 'The sky is blue' — listen for garbled or incomprehensible words.", "timer_seconds": 10 },
+    { "step_number": 4, "instruction": "TIME: Note the exact time symptoms started. Call emergency immediately. Tell them 'possible stroke.'", "tip": "Clot-busting medication must be given within 4.5 hours. Earlier = better outcome.", "timer_seconds": 15 },
+    { "step_number": 5, "instruction": "While waiting: Keep the person calm. Lay them down with head slightly elevated. Do NOT give food or water (swallowing may be impaired).", "tip": "Loosen tight clothing. If they vomit, turn them on their side.", "timer_seconds": 60 }
+  ],
+  "when_to_stop": ["Emergency services arrive"],
+  "do_not": ["Do NOT give aspirin (may be hemorrhagic stroke)", "Do NOT give food or water", "Do NOT let them fall asleep before help arrives", "Do NOT drive them yourself unless no ambulance is available"]
+}

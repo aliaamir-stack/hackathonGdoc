@@ -1,0 +1,59 @@
+{
+  "id": "cpr_child",
+  "title": "CPR — Child/Infant (Under 12)",
+  "category": "cardiac",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": [
+    "baby not breathing", "child not breathing", "infant CPR", "baby unconscious",
+    "child collapsed", "baby no pulse", "toddler not breathing", "newborn not breathing",
+    "child cardiac arrest", "baby heart stopped"
+  ],
+  "immediate_action": "Call 1122/115 immediately. Begin child CPR.",
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Check for responsiveness. Tap the child's foot (infant) or shoulder (child) and shout.",
+      "tip": "Never shake a baby. Flick the sole of the foot gently for infants.",
+      "timer_seconds": 10
+    },
+    {
+      "step_number": 2,
+      "instruction": "Give 5 initial rescue breaths. Cover the infant's mouth AND nose with your mouth. For children, pinch nose and cover mouth. Blow gently for 1 second each.",
+      "tip": "Use gentle puffs for infants — their lungs are tiny. Watch for chest rise.",
+      "timer_seconds": 15
+    },
+    {
+      "step_number": 3,
+      "instruction": "For INFANTS: Use 2 fingers on the center of the chest, just below the nipple line. Compress 1.5 inches deep. For CHILDREN: Use 1 hand heel on center of chest. Compress 2 inches deep.",
+      "tip": "Rate: 100-120 compressions per minute for both.",
+      "timer_seconds": 5
+    },
+    {
+      "step_number": 4,
+      "instruction": "Give 30 compressions followed by 2 rescue breaths. Continue this cycle.",
+      "tip": "For infants, small puffs only. Over-inflation can cause lung damage.",
+      "timer_seconds": 24
+    },
+    {
+      "step_number": 5,
+      "instruction": "After 2 minutes of CPR (about 5 cycles), call emergency services if not already done. Then continue CPR.",
+      "tip": "If alone with an infant, carry them while doing CPR to reach a phone.",
+      "timer_seconds": 120
+    },
+    {
+      "step_number": 6,
+      "instruction": "Continue CPR until emergency services arrive, the child starts breathing, or an AED arrives.",
+      "tip": "Child AED pads should be used if available. If not, adult pads can be used — place one on front, one on back.",
+      "timer_seconds": 120
+    }
+  ],
+  "when_to_stop": [
+    "Paramedics arrive", "Child starts breathing normally", "AED advises to stop"
+  ],
+  "do_not": [
+    "Do NOT use adult compression depth on infants",
+    "Do NOT blow too hard — gentle puffs for infants",
+    "Do NOT delay — every second counts"
+  ]
+}

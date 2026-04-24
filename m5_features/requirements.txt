@@ -1,0 +1,31 @@
+# ============================================================
+# PULSE — Member 5 (Features Engineer) Dependencies
+# Medicine Scanner · Emergency Guide · Email Alert
+# ============================================================
+
+# --- Core Framework ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+python-dotenv==1.0.1
+
+# --- AI / Vision ---
+google-generativeai==0.8.3
+
+# --- Image Processing & OCR ---
+opencv-python==4.10.0.84
+pytesseract==0.3.13
+Pillow==10.4.0
+
+# --- HTTP Client (async) ---
+httpx==0.27.2
+
+# --- Caching ---
+redis==5.0.3
+
+# --- Testing ---
+pytest==8.3.3
+pytest-asyncio==0.24.0
+
+# --- Utilities ---
+python-multipart==0.0.12

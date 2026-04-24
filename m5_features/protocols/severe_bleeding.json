@@ -1,0 +1,18 @@
+{
+  "id": "severe_bleeding",
+  "title": "Severe Bleeding Control",
+  "category": "trauma",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["bleeding heavily", "severe bleeding", "blood everywhere", "cut deep", "wound bleeding", "arterial bleed", "blood spurting", "hemorrhage", "deep laceration", "stab wound bleeding"],
+  "immediate_action": "Apply direct pressure immediately. Call emergency services.",
+  "steps": [
+    { "step_number": 1, "instruction": "Apply FIRM direct pressure to the wound using a clean cloth, gauze, or even clothing. Press HARD.", "tip": "Use gloves if available. If nothing else, use your bare hand — saving life is priority.", "timer_seconds": 10 },
+    { "step_number": 2, "instruction": "Do NOT remove the cloth if it soaks through. Add more cloth on top and keep pressing.", "tip": "Removing soaked material disrupts clotting. Layer more material on top.", "timer_seconds": 30 },
+    { "step_number": 3, "instruction": "If bleeding is from a limb, elevate the injured limb above the heart while maintaining pressure.", "tip": "Gravity helps reduce blood flow to the wound.", "timer_seconds": 15 },
+    { "step_number": 4, "instruction": "If bleeding doesn't stop with direct pressure, apply a tourniquet 2-3 inches above the wound (limbs only). Tighten until bleeding stops. Note the time.", "tip": "A belt, tie, or torn cloth can serve as improvised tourniquet. Write the time on the person's skin.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "Keep the person warm and lying down. Monitor for signs of shock: pale skin, rapid breathing, confusion.", "tip": "Cover with blankets. Do NOT elevate legs if spinal/head injury is suspected.", "timer_seconds": 60 }
+  ],
+  "when_to_stop": ["Paramedics arrive", "Bleeding is controlled"],
+  "do_not": ["Do NOT remove objects embedded in the wound", "Do NOT apply tourniquet to neck, head, or torso", "Do NOT give the person anything to drink"]
+}

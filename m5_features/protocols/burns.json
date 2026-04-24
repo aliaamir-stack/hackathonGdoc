@@ -1,0 +1,18 @@
+{
+  "id": "burns",
+  "title": "Burns — Thermal/Chemical",
+  "category": "trauma",
+  "severity_level": 4,
+  "call_ambulance": true,
+  "trigger_phrases": ["burn", "burned", "scalded", "hot water burn", "fire burn", "chemical burn", "skin burning", "boiling water", "steam burn", "acid burn"],
+  "immediate_action": "Cool the burn under cool running water for at least 20 minutes.",
+  "steps": [
+    { "step_number": 1, "instruction": "Cool the burn under cool (not cold/ice) running water for 20 minutes. Start immediately.", "tip": "20 minutes is the minimum. This is the single most important step. Lukewarm is fine.", "timer_seconds": 1200 },
+    { "step_number": 2, "instruction": "Remove clothing and jewelry near the burn UNLESS stuck to the skin.", "tip": "Clothing retains heat. Remove rings/watches before swelling makes it impossible.", "timer_seconds": 30 },
+    { "step_number": 3, "instruction": "Cover the burn loosely with cling film or a clean, non-fluffy material.", "tip": "Cling film laid over (not wrapped around) is ideal. It's sterile, transparent, and doesn't stick.", "timer_seconds": 30 },
+    { "step_number": 4, "instruction": "For chemical burns: brush off dry chemicals first, then flush with water for 20+ minutes.", "tip": "Check the chemical's MSDS if possible. Some chemicals react with water.", "timer_seconds": 1200 },
+    { "step_number": 5, "instruction": "Call emergency services for: burns larger than the person's hand, burns on face/hands/feet/genitals, deep burns (white/brown, no pain), chemical/electrical burns, or burns in children.", "tip": "If in doubt, always seek emergency care.", "timer_seconds": 30 }
+  ],
+  "when_to_stop": ["Burn has been cooled for 20 minutes", "Emergency services arrive"],
+  "do_not": ["Do NOT apply ice, butter, toothpaste, or cream", "Do NOT burst blisters", "Do NOT remove clothing stuck to the burn", "Do NOT use fluffy cotton or adhesive bandages"]
+}

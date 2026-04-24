@@ -1,0 +1,18 @@
+{
+  "id": "poisoning",
+  "title": "Poisoning (Ingestion/Inhalation)",
+  "category": "toxicology",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["poisoning", "swallowed poison", "drank bleach", "ate something toxic", "chemical ingestion", "overdose", "poisoned", "toxic fumes", "swallowed pills", "accidental ingestion"],
+  "immediate_action": "Call Poison Control or emergency services. Identify the substance if possible.",
+  "steps": [
+    { "step_number": 1, "instruction": "Call emergency services or Poison Control. Tell them: what was swallowed, how much, when, and the person's age/weight.", "tip": "Keep the container/packaging — paramedics need to know the exact substance.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Do NOT induce vomiting unless specifically told to by Poison Control. Many substances cause more damage coming back up.", "tip": "Corrosives (bleach, drain cleaner) and petroleum products MUST NOT be vomited.", "timer_seconds": 10 },
+    { "step_number": 3, "instruction": "If the person is conscious and alert, and Poison Control advises: they may recommend drinking water or milk to dilute.", "tip": "Follow Poison Control instructions exactly. Do not give charcoal without medical direction.", "timer_seconds": 30 },
+    { "step_number": 4, "instruction": "For INHALED poison: move to fresh air immediately. Open doors and windows. Do NOT enter contaminated area without protection.", "tip": "If the toxic gas has a smell, hold your breath while moving them. Get upwind.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "If unconscious: place in recovery position. Monitor breathing. If breathing stops, begin CPR but be cautious of chemical exposure during mouth-to-mouth.", "tip": "Use a barrier device for rescue breaths if possible with chemical poisoning.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Paramedics arrive", "Poison Control says safe"],
+  "do_not": ["Do NOT induce vomiting without medical advice", "Do NOT give food or liquids unless instructed", "Do NOT enter an area with toxic fumes without protection"]
+}

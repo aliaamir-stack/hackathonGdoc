@@ -1,0 +1,18 @@
+{
+  "id": "electric_shock",
+  "title": "Electric Shock/Electrocution",
+  "category": "trauma",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["electric shock", "electrocuted", "electrical burn", "power line", "lightning strike", "touched live wire", "electrical accident", "shock from outlet", "current injury"],
+  "immediate_action": "Do NOT touch the person if still in contact with the source. Disconnect power first.",
+  "steps": [
+    { "step_number": 1, "instruction": "STOP. Do NOT touch the person if they are still in contact with the electrical source. Turn off the power at the main switch/breaker.", "tip": "Electricity can travel through you. Use a dry non-conducting object (wooden broom, rubber mat) to separate them from the source.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Call emergency services immediately. Mention electrical injury — they may need specialized cardiac monitoring.", "tip": "Even if the person seems fine, internal injuries and cardiac arrhythmias can develop hours later.", "timer_seconds": 15 },
+    { "step_number": 3, "instruction": "Check for breathing and pulse. If not breathing, begin CPR immediately.", "tip": "Electrical shock can cause cardiac arrest. Early CPR is critical.", "timer_seconds": 30 },
+    { "step_number": 4, "instruction": "Look for entry AND exit burns. Electrical burns may look minor on the skin but cause massive internal damage.", "tip": "Cover burns with sterile dressing. Do NOT apply water or ointments.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "Treat for shock: keep warm, elevate legs if no spinal injury suspected, monitor consciousness.", "tip": "Do NOT move them if fall from height is possible — suspect spinal injury.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Emergency services arrive"],
+  "do_not": ["Do NOT touch person if source is still active", "Do NOT use metal or wet objects to separate from source", "Do NOT assume they're okay — internal damage may not be visible", "Do NOT use water on electrical burns while near live electricity"]
+}
