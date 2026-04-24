@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE — Project Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --surface: #0d1318;
+  --surface2: #131c24;
+  --surface3: #1a2535;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #00e87a;
+  --accent-dim: rgba(0,232,122,0.12);
+  --accent-dim2: rgba(0,232,122,0.06);
+  --blue: #3b7eff;
+  --blue-dim: rgba(59,126,255,0.12);
+  --amber: #ffb347;
+  --amber-dim: rgba(255,179,71,0.12);
+  --red: #ff4d6a;
+  --red-dim: rgba(255,77,106,0.12);
+  --purple: #b57bff;
+  --purple-dim: rgba(181,123,255,0.12);
+  --teal: #22d3ee;
+  --teal-dim: rgba(34,211,238,0.12);
+  --text: #dce8f0;
+  --text2: #8496aa;
+  --text3: #4a6070;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden}
+
+/* noise overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+
+/* layout */
+.container{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+section{padding:80px 0 60px}
+section+section{border-top:1px solid var(--border)}
+
+/* hero */
+.hero{padding:100px 0 80px;text-align:center;position:relative}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(0,232,122,0.2);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;padding:6px 14px;border-radius:2px;margin-bottom:32px;text-transform:uppercase}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse-anim 1.5s ease-in-out infinite}
+@keyframes pulse-anim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(52px,9vw,96px);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:20px}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-size:17px;color:var(--text2);max-width:560px;margin:0 auto 40px;font-weight:300}
+.stat-row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:48px}
+.stat-item{text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--accent);display:block;line-height:1}
+.stat-label{font-size:12px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* section headers */
+.section-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--accent)}
+h2{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.section-lead{color:var(--text2);font-size:16px;max-width:580px;margin-bottom:48px;font-weight:300}
+
+/* feature cards */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.feat-card{background:var(--surface);padding:24px;transition:background .15s}
+.feat-card:hover{background:var(--surface2)}
+.feat-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:12px}
+.feat-icon{font-size:22px;margin-bottom:12px;display:block}
+.feat-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.feat-card p{font-size:13px;color:var(--text2);line-height:1.55}
+.feat-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;border-radius:2px;margin-top:10px;text-transform:uppercase;letter-spacing:.06em}
+
+/* tech stack */
+.stack-layer{background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:8px;overflow:hidden}
+.stack-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s}
+.stack-head:hover{background:var(--surface2)}
+.stack-label{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;flex:1}
+.stack-meta{font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.stack-body{display:none;padding:0 18px 18px;border-top:1px solid var(--border)}
+.stack-body.open{display:block}
+.pill-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pill{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 10px;border-radius:2px;border:1px solid var(--border2);color:var(--text2);background:var(--surface2)}
+.pill.accent{border-color:rgba(0,232,122,0.25);color:var(--accent);background:var(--accent-dim2)}
+.stack-note{font-size:12px;color:var(--text3);margin-top:12px;line-height:1.6;font-style:italic}
+
+/* requirements */
+.req-section{margin-bottom:32px}
+.req-section-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.req-list{display:flex;flex-direction:column;gap:6px}
+.req-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 14px}
+.req-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.req-how{font-size:11px;color:var(--text3);line-height:1.5}
+.req-link{font-size:11px;color:var(--blue);text-decoration:none}
+.req-link:hover{text-decoration:underline}
+.badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:2px;font-weight:500;white-space:nowrap;align-self:flex-start}
+.b-free{background:rgba(0,232,122,0.1);color:var(--accent);border:1px solid rgba(0,232,122,0.2)}
+.b-gen{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(181,123,255,0.2)}
+.b-run{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(59,126,255,0.2)}
+
+/* env block */
+.env-block{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.2;overflow-x:auto;position:relative}
+.env-comment{color:var(--text3)}
+.env-key{color:var(--teal)}
+.env-val{color:var(--amber)}
+.copy-btn{position:absolute;top:14px;right:14px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;border-radius:2px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{background:var(--surface3);color:var(--text)}
+
+/* team cards */
+.team-grid{display:flex;flex-direction:column;gap:6px}
+.member-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.member-head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;transition:background .15s;user-select:none}
+.member-head:hover{background:var(--surface2)}
+.avatar{width:36px;height:36px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;flex-shrink:0;letter-spacing:-.01em}
+.member-info{flex:1}
+.member-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.member-role{font-size:11px;color:var(--text3);margin-top:1px}
+.expand-icon{color:var(--text3);font-size:16px;transition:transform .2s;font-family:'JetBrains Mono',monospace}
+.expand-icon.open{transform:rotate(45deg)}
+.member-body{display:none;padding:0 18px 20px;border-top:1px solid var(--border)}
+.member-body.open{display:block}
+.warn-banner{background:rgba(255,179,71,0.07);border:1px solid rgba(255,179,71,0.18);border-radius:3px;padding:10px 14px;font-size:12px;color:var(--amber);margin:16px 0;line-height:1.5}
+.task-table{width:100%;border-collapse:collapse;margin:14px 0}
+.task-table tr{border-bottom:1px solid var(--border)}
+.task-table tr:last-child{border-bottom:none}
+.task-table td{padding:9px 0;font-size:12px;vertical-align:top}
+.task-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);width:80px;padding-right:14px;padding-top:10px;white-space:nowrap}
+.task-text{color:var(--text);line-height:1.55}
+.task-note{color:var(--text3);font-size:11px;margin-top:3px;line-height:1.4}
+.task-cmd{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--surface2);padding:3px 7px;border-radius:2px;color:var(--teal);display:inline-block;margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.sub-heading{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.req-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.req-mini{background:var(--surface2);border-radius:3px;padding:9px 11px;border:1px solid var(--border)}
+.req-mini-name{font-size:11px;font-weight:500;color:var(--text)}
+.req-mini-how{font-size:10px;color:var(--text3);margin-top:2px;line-height:1.4}
+
+/* git timeline */
+.git-row{display:grid;grid-template-columns:80px 1fr;gap:0;margin-bottom:4px;align-items:start}
+.git-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);padding-top:10px;text-align:right;padding-right:16px}
+.git-event{padding:8px 12px;border-radius:3px;border:1px solid var(--border);background:var(--surface);font-size:12px}
+.git-event:hover{background:var(--surface2)}
+.git-title{font-weight:500;color:var(--text);display:flex;align-items:center;gap:8px}
+.git-sub{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4}
+.git-cmd{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--surface2);padding:3px 7px;border-radius:2px;color:var(--teal);display:inline-block;margin-top:5px}
+.git-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.git-merge{border-color:rgba(255,77,106,0.25);background:rgba(255,77,106,0.05)}
+.git-sync{border-color:rgba(255,179,71,0.2);background:rgba(255,179,71,0.05)}
+.git-deploy{border-color:rgba(0,232,122,0.2);background:rgba(0,232,122,0.05)}
+.phase-marker{display:grid;grid-template-columns:80px 1fr;margin:20px 0 8px}
+.phase-chip{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:2px;display:inline-block;letter-spacing:.06em;text-transform:uppercase}
+.branch-key{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.bk-item{display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
+.bk-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* rules box */
+.rule-box{background:var(--surface);border-left:3px solid var(--accent);padding:16px 20px;margin:10px 0;border-radius:0 4px 4px 0}
+.rule-box strong{font-family:'Syne',sans-serif;font-size:13px;color:var(--accent)}
+.rule-box p{font-size:13px;color:var(--text2);margin-top:4px;line-height:1.5}
+
+/* nav */
+.side-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:100}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .2s;border:none;outline:none}
+.nav-dot.active,.nav-dot:hover{background:var(--accent);transform:scale(1.3)}
+.nav-dot-label{position:absolute;right:18px;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border2);color:var(--text);font-size:11px;padding:3px 8px;border-radius:2px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;font-family:'JetBrains Mono',monospace}
+.nav-dot-wrap{position:relative}
+.nav-dot-wrap:hover .nav-dot-label{opacity:1}
+
+/* misc */
+.divider{height:1px;background:var(--border);margin:24px 0}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:2px;color:var(--teal)}
+.highlight{color:var(--accent)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}.side-nav{display:none}.stat-row{gap:24px}.req-mini-grid{grid-template-columns:1fr}}
+.footer{padding:40px 0;text-align:center;font-size:12px;color:var(--text3);border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:24px}
+.toc-item{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:12px 14px;text-decoration:none;transition:all .15s;display:flex;align-items:center;gap:8px}
+.toc-item:hover{background:var(--surface2);border-color:var(--border2);text-decoration:none}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent)}
+.toc-text{font-size:12px;color:var(--text);font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- Side nav -->
+<nav class="side-nav" id="sidenav">
+  <div class="nav-dot-wrap"><button class="nav-dot active" onclick="scrollTo('#hero')" title="Top"></button><span class="nav-dot-label">Hero</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#features')" title="Features"></button><span class="nav-dot-label">Features</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#stack')" title="Tech Stack"></button><span class="nav-dot-label">Stack</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#requirements')" title="Requirements"></button><span class="nav-dot-label">Requirements</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#env')" title=".env"></button><span class="nav-dot-label">.env file</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#team')" title="Team"></button><span class="nav-dot-label">Team</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#git')" title="Git Timeline"></button><span class="nav-dot-label">Git Flow</span></div>
+  <div class="nav-dot-wrap"><button class="nav-dot" onclick="scrollTo('#rules')" title="Rules"></button><span class="nav-dot-label">Rules</span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-eyebrow"><div class="pulse-dot"></div>BWAI Hackathon 2026 · DHA Suffa University · 15h 20min build</div>
+    <h1>P<span>ULS</span>E</h1>
+    <p class="hero-sub">AI-Powered Community Health Intelligence Network. The doctor for 4 billion people who don't have one.</p>
+    <div class="stat-row">
+      <div class="stat-item"><span class="stat-num">5.7M</span><span class="stat-label">preventable deaths/yr</span></div>
+      <div class="stat-item"><span class="stat-num">7</span><span class="stat-label">AI features</span></div>
+      <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">team members</span></div>
+      <div class="stat-item"><span class="stat-num">₨0</span><span class="stat-label">total cost</span></div>
+    </div>
+    <div class="toc-grid" style="margin-top:56px">
+      <a class="toc-item" href="#features"><span class="toc-num">01</span><span class="toc-text">7 Features</span></a>
+      <a class="toc-item" href="#stack"><span class="toc-num">02</span><span class="toc-text">Tech Stack</span></a>
+      <a class="toc-item" href="#requirements"><span class="toc-num">03</span><span class="toc-text">Requirements</span></a>
+      <a class="toc-item" href="#env"><span class="toc-num">04</span><span class="toc-text">.env File</span></a>
+      <a class="toc-item" href="#team"><span class="toc-num">05</span><span class="toc-text">Team Roles</span></a>
+      <a class="toc-item" href="#git"><span class="toc-num">06</span><span class="toc-text">Git Timeline</span></a>
+      <a class="toc-item" href="#rules"><span class="toc-num">07</span><span class="toc-text">Git Rules</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-tag">01 · Features</div>
+    <h2>7 AI Features</h2>
+    <p class="section-lead">Every feature is impossible without AI — not enhanced by it. That's the judging criteria we're targeting.</p>
+    <div class="feature-grid">
+      <div class="feat-card">
+        <div class="feat-num">01</div>
+        <span class="feat-icon">🛡️</span>
+        <h3>MedFact Shield</h3>
+        <p>RAG pipeline over 5,000 PubMed abstracts. Decomposes any health claim into atomic sub-claims, retrieves evidence, returns a verdict with real paper citations. Destroys fake WhatsApp health forwards.</p>
+        <span class="feat-tag" style="background:var(--accent-dim);color:var(--accent)">LangChain RAG · ChromaDB</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">02</div>
+        <span class="feat-icon">🩺</span>
+        <h3>Symptom Navigator</h3>
+        <p>Clinical triage chatbot in Urdu + English. Multi-turn conversation with Redis memory. Forces structured output: urgency 1–5, ICD-10 differential, red flags, recommended action. Generates downloadable triage PDF.</p>
+        <span class="feat-tag" style="background:var(--blue-dim);color:var(--blue)">ICD-10 · Pydantic · reportlab</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">03</div>
+        <span class="feat-icon">💊</span>
+        <h3>Medicine Scanner</h3>
+        <p>Photo → OpenCV preprocessing → Tesseract OCR → Gemini Vision identification → OpenFDA official data → DrugBank interaction check. Flags expired packaging. Works in under 4 seconds.</p>
+        <span class="feat-tag" style="background:var(--purple-dim);color:var(--purple)">Vision AI · OCR · OpenFDA</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">04</div>
+        <span class="feat-icon">🗺️</span>
+        <h3>Outbreak Radar</h3>
+        <p>Every symptom report logs anonymized lat/lng. Celery runs DBSCAN every 15 min. Prophet detects time-series anomalies. Results broadcast via WebSocket to a live Leaflet heatmap. WHO RSS feed overlaid.</p>
+        <span class="feat-tag" style="background:var(--amber-dim);color:var(--amber)">DBSCAN · Prophet · WebSocket</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">05</div>
+        <span class="feat-icon">🚨</span>
+        <h3>Emergency First Aid</h3>
+        <p>Voice-activated. 15 protocol JSONs cached offline via Service Worker. Web Speech API transcribes → Gemini matches protocol → Web Speech TTS guides step-by-step. Telegram bot sends GPS to contacts.</p>
+        <span class="feat-tag" style="background:var(--red-dim);color:var(--red)">Voice · PWA offline · Telegram</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">06</div>
+        <span class="feat-icon">🏥</span>
+        <h3>Resource Locator</h3>
+        <p>Triage result feeds directly into facility search. Urgency 5 → filters for trauma centres. OSRM open-source routing. 3,000+ OSM facilities. Blood bank search. Nearest AED within 500m.</p>
+        <span class="feat-tag" style="background:var(--teal-dim);color:var(--teal)">OSRM · PostGIS · Leaflet</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">07</div>
+        <span class="feat-icon">📊</span>
+        <h3>Health Dashboard</h3>
+        <p>JWT-protected. Pakistan district choropleth map. Timeline scrubber to replay 30-day outbreak evolution. Neighbourhood health score = weighted outbreak proximity + facility access + report volume. FHIR R4 export.</p>
+        <span class="feat-tag" style="background:var(--accent-dim);color:var(--accent)">GeoJSON · Recharts · FHIR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="container">
+    <div class="section-tag">02 · Architecture</div>
+    <h2>Full Tech Stack</h2>
+    <p class="section-lead">Click any layer to expand. Every tool chosen to be free, fast, and demo-ready.</p>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+        <span class="stack-label">Frontend</span>
+        <span class="stack-meta">Next.js 14 · TypeScript · Tailwind · Leaflet</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">Next.js 14 App Router</span><span class="pill accent">TypeScript strict</span><span class="pill">Tailwind CSS</span><span class="pill">shadcn/ui</span><span class="pill">Framer Motion</span><span class="pill">react-leaflet</span><span class="pill">leaflet.heat</span><span class="pill">Recharts</span><span class="pill">Web Speech API</span><span class="pill">Quagga.js (barcode)</span><span class="pill">PWA + Service Worker</span>
+        </div>
+        <p class="stack-note">WebSocket client for live outbreak updates · Camera API for pill scanning · No Mapbox needed — OpenStreetMap tiles are free with no key</p>
+      </div>
+    </div>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0"></div>
+        <span class="stack-label">Backend</span>
+        <span class="stack-meta">FastAPI · Python 3.12 · Async everywhere</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">FastAPI + Uvicorn</span><span class="pill accent">Pydantic v2</span><span class="pill">SQLAlchemy async</span><span class="pill">WebSockets</span><span class="pill">Celery + Redis</span><span class="pill">feedparser (WHO RSS)</span><span class="pill">pytesseract + cv2</span><span class="pill">python-telegram-bot</span><span class="pill">httpx async</span><span class="pill">python-jose (JWT)</span><span class="pill">slowapi (rate limiting)</span>
+        </div>
+        <p class="stack-note">SSE streaming for Gemini responses · JWT auth on dashboard route · Celery tasks: WHO RSS every hour, DBSCAN every 15 min</p>
+      </div>
+    </div>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--purple);flex-shrink:0"></div>
+        <span class="stack-label">AI / ML Pipeline</span>
+        <span class="stack-meta">Gemini 1.5 Flash · LangChain · DBSCAN · Prophet</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">Google Gemini 1.5 Flash</span><span class="pill accent">Gemini Vision</span><span class="pill">LangChain RAG</span><span class="pill">SentenceTransformers all-MiniLM-L6-v2</span><span class="pill">ChromaDB</span><span class="pill">scikit-learn DBSCAN</span><span class="pill">Facebook Prophet</span><span class="pill">spaCy + medspaCy</span><span class="pill">LangChain ConversationMemory</span><span class="pill">reportlab (PDF)</span>
+        </div>
+        <p class="stack-note">RAG chunks: 512 tokens / 50 overlap · DBSCAN ε=0.02° (~2km), min_samples=5 · Prophet: 95% CI anomaly bound per district · Gemini free tier: 1M tokens/day, 15 req/min</p>
+      </div>
+    </div>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+        <span class="stack-label">Data Layer</span>
+        <span class="stack-meta">Supabase · Upstash Redis · ChromaDB</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">Supabase PostgreSQL</span><span class="pill accent">Supabase Realtime (WebSocket)</span><span class="pill">Upstash Redis (serverless)</span><span class="pill">ChromaDB (local Docker)</span><span class="pill">TimescaleDB extension</span>
+        </div>
+        <p class="stack-note">Supabase free tier: 500MB DB, 2GB bandwidth · Upstash free: 10k commands/day · All cloud-managed — no Docker for Postgres or Redis needed</p>
+      </div>
+    </div>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0"></div>
+        <span class="stack-label">Free Datasets</span>
+        <span class="stack-meta">PubMed · ICD-10 · DrugBank · OpenStreetMap · WHO</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">PubMed abstracts (NCBI E-utilities)</span><span class="pill accent">WHO ICD-10 codes (14,000 rows)</span><span class="pill accent">OpenFDA drug database</span><span class="pill accent">DrugBank open interactions CSV</span><span class="pill">OpenStreetMap Overpass (facilities)</span><span class="pill">WHO Disease Outbreak RSS</span><span class="pill">Pakistan admin GeoJSON (HDX)</span><span class="pill">MedlinePlus (NIH)</span>
+        </div>
+        <p class="stack-note">~5,000 PubMed abstracts · ~3,000 OSM facilities in Pakistan · ~14,000 ICD-10 codes · All free, no license issues</p>
+      </div>
+    </div>
+
+    <div class="stack-layer">
+      <div class="stack-head" onclick="toggleStack(this)">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0"></div>
+        <span class="stack-label">Deployment</span>
+        <span class="stack-meta">Vercel (frontend) · Render (backend)</span>
+        <span style="margin-left:8px;color:var(--text3);font-size:12px">＋</span>
+      </div>
+      <div class="stack-body">
+        <div class="pill-wrap">
+          <span class="pill accent">Vercel (Next.js — free forever)</span><span class="pill accent">Render (FastAPI — free tier)</span><span class="pill">GitHub Actions (CI)</span>
+        </div>
+        <p class="stack-note">⚠ Render free tier sleeps after 15 min of inactivity. Hit the /ping endpoint 30 seconds before the live demo. Takes ~30s to wake up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements">
+  <div class="container">
+    <div class="section-tag">03 · Setup</div>
+    <h2>What You Need to Collect</h2>
+    <p class="section-lead">Everything is free. Total cost: ₨0. Do these in parallel as a team — takes 20 minutes if you divide and conquer.</p>
+
+    <div class="req-section">
+      <div class="req-section-title">Accounts to create (all free)</div>
+      <div class="req-list">
+        <div class="req-item">
+          <div><div class="req-name">Google AI Studio — Gemini API key</div><div class="req-how">Your main AI engine. Free, no credit card. Visit aistudio.google.com → Get API key → done instantly.<br><a class="req-link" href="https://aistudio.google.com" target="_blank">aistudio.google.com →</a></div></div>
+          <span class="badge b-free">Free forever</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">Supabase — URL + Anon key + Service key</div><div class="req-how">Hosted PostgreSQL + Realtime WebSockets. app.supabase.com → New project → Settings → API → copy 3 values.<br><a class="req-link" href="https://app.supabase.com" target="_blank">app.supabase.com →</a></div></div>
+          <span class="badge b-free">Free tier</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">Upstash — Redis connection string</div><div class="req-how">Serverless Redis, 10k commands/day free. console.upstash.com → Create DB → copy the <code>rediss://</code> URL.<br><a class="req-link" href="https://console.upstash.com" target="_blank">console.upstash.com →</a></div></div>
+          <span class="badge b-free">Free tier</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">Telegram — Bot token + your chat ID</div><div class="req-how">Telegram → message @BotFather → /newbot → copy token. Then message @userinfobot → copy your numeric chat_id.</div></div>
+          <span class="badge b-free">Free forever</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">NCBI / PubMed E-Utilities API key</div><div class="req-how">Raises ingestion rate from 3 → 10 req/sec. ncbi.nlm.nih.gov/account → sign up → My NCBI → API key management.<br><a class="req-link" href="https://www.ncbi.nlm.nih.gov/account" target="_blank">ncbi.nlm.nih.gov →</a></div></div>
+          <span class="badge b-free">Free</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">DrugBank — free open data account</div><div class="req-how">Register free academic account → Downloads → Open Data → download drug_interactions.csv.<br><a class="req-link" href="https://go.drugbank.com/releases/latest#open-data" target="_blank">drugbank.com/open-data →</a></div></div>
+          <span class="badge b-free">Free</span>
+        </div>
+        <div class="req-item">
+          <div><div class="req-name">Vercel + Render accounts</div><div class="req-how">Both connect to GitHub repo for auto-deploy. vercel.com and render.com — sign up with GitHub account.</div></div>
+          <span class="badge b-free">Free tier</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">Software to install locally</div>
+      <div class="req-list">
+        <div class="req-item"><div><div class="req-name">Node.js 20+ and npm</div><div class="req-how">For Next.js frontend. Check: <code>node -v</code> &nbsp;<a class="req-link" href="https://nodejs.org" target="_blank">nodejs.org →</a></div></div><span class="badge b-run">Install</span></div>
+        <div class="req-item"><div><div class="req-name">Python 3.12+</div><div class="req-how">For FastAPI backend and all ML. <a class="req-link" href="https://www.python.org/downloads" target="_blank">python.org →</a></div></div><span class="badge b-run">Install</span></div>
+        <div class="req-item"><div><div class="req-name">Docker Desktop — for ChromaDB only</div><div class="req-how">Run: <code>docker run -p 8001:8000 chromadb/chroma</code> and leave it running. <a class="req-link" href="https://www.docker.com/products/docker-desktop" target="_blank">docker.com →</a></div></div><span class="badge b-run">Install</span></div>
+        <div class="req-item"><div><div class="req-name">Tesseract OCR (system binary)</div><div class="req-how">Not a pip package. Windows: <code>winget install UB-Mannheim.TesseractOCR</code> · Mac: <code>brew install tesseract</code> · Linux: <code>sudo apt install tesseract-ocr</code></div></div><span class="badge b-run">Install</span></div>
+        <div class="req-item"><div><div class="req-name">Git + GitHub repo (already done ✓)</div><div class="req-how">6 branches created. main + dev + m1/frontend + m2/backend + m3/ai-ml + m4/data + m5/features + m6/outbreak</div></div><span class="badge b-gen">Done</span></div>
+      </div>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">One-time data setup tasks (run once, in order)</div>
+      <div class="req-list">
+        <div class="req-item"><div><div class="req-name">1. Start ChromaDB via Docker</div><div class="req-how"><code>docker run -p 8001:8000 chromadb/chroma</code> — leave terminal open the entire build</div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">2. Run Supabase schema SQL</div><div class="req-how">Paste the schema SQL into Supabase SQL Editor → Run. Creates symptom_reports, facilities, drugs, users, alerts, icd10_codes tables.</div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">3. Enable Realtime on symptom_reports</div><div class="req-how">Supabase dashboard → Table Editor → symptom_reports → toggle Realtime ON. Required for live outbreak WebSocket.</div></div><span class="badge b-run">Dashboard toggle</span></div>
+        <div class="req-item"><div><div class="req-name">4. Run PubMed ingestion (do this FIRST — takes 20 min)</div><div class="req-how">Kick off in background immediately. Pulls ~5,000 abstracts → embeds with SentenceTransformers → stores in ChromaDB.</div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">5. Load ICD-10 CSV into Supabase</div><div class="req-how">Download from cms.gov → run loader script → ~14,000 disease codes inserted. <a class="req-link" href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">cms.gov →</a></div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">6. Run OSM Overpass facility scraper</div><div class="req-how">Queries OpenStreetMap for all hospitals, pharmacies, blood banks, AEDs in Pakistan → inserts ~3,000 facilities with coordinates.</div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">7. Load DrugBank interaction CSV</div><div class="req-how">Download from DrugBank account → run parser → drug-drug interaction pairs loaded into drugs table.</div></div><span class="badge b-run">Run once</span></div>
+        <div class="req-item"><div><div class="req-name">8. Run seed script (300 symptom reports)</div><div class="req-how">Generates realistic lat/lng reports across Karachi, Lahore, Islamabad so the outbreak radar looks populated during demo.</div></div><span class="badge b-run">Run once</span></div>
+      </div>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">Free APIs — zero setup, use directly in code</div>
+      <div class="two-col">
+        <div class="req-item"><div><div class="req-name">OpenFDA</div><div class="req-how"><code>https://api.fda.gov/drug/ndc.json</code> — no key needed for demo traffic</div></div></div>
+        <div class="req-item"><div><div class="req-name">OSM Overpass</div><div class="req-how"><code>https://overpass-api.de/api/interpreter</code> — no key</div></div></div>
+        <div class="req-item"><div><div class="req-name">OSRM Routing</div><div class="req-how"><code>http://router.project-osrm.org</code> — free public server</div></div></div>
+        <div class="req-item"><div><div class="req-name">WHO Outbreak RSS</div><div class="req-how"><code>https://www.who.int/rss-feeds/news-english.xml</code></div></div></div>
+        <div class="req-item"><div><div class="req-name">OSM Map Tiles</div><div class="req-how"><code>https://tile.openstreetmap.org/{z}/{x}/{y}.png</code></div></div></div>
+        <div class="req-item"><div><div class="req-name">Pakistan GeoJSON</div><div class="req-how"><a class="req-link" href="https://data.humdata.org/dataset/cod-ab-pak" target="_blank">data.humdata.org/dataset/cod-ab-pak →</a></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENV FILE -->
+<section id="env">
+  <div class="container">
+    <div class="section-tag">04 · Configuration</div>
+    <h2>Complete .env File</h2>
+    <p class="section-lead">Copy this. Fill in your values. Never commit this file to GitHub — add <code>.env</code> to <code>.gitignore</code> immediately.</p>
+    <div class="env-block">
+      <button class="copy-btn" onclick="copyEnv()">copy</button>
+<pre id="env-content"><span class="env-comment"># ── AI ENGINE ────────────────────────────────────</span>
+<span class="env-key">GEMINI_API_KEY</span>=<span class="env-val">AIza...</span>
+
+<span class="env-comment"># ── DATABASE (Supabase — free tier) ─────────────</span>
+<span class="env-key">SUPABASE_URL</span>=<span class="env-val">https://xxxx.supabase.co</span>
+<span class="env-key">SUPABASE_ANON_KEY</span>=<span class="env-val">eyJ...</span>
+<span class="env-key">SUPABASE_SERVICE_KEY</span>=<span class="env-val">eyJ...</span>
+<span class="env-key">DATABASE_URL</span>=<span class="env-val">postgresql+asyncpg://postgres:PASSWORD@db.xxxx.supabase.co:5432/postgres</span>
+
+<span class="env-comment"># ── REDIS (Upstash — free tier) ─────────────────</span>
+<span class="env-key">REDIS_URL</span>=<span class="env-val">rediss://default:TOKEN@xxxx.upstash.io:6379</span>
+
+<span class="env-comment"># ── EMERGENCY ALERTS (Telegram — free) ──────────</span>
+<span class="env-key">TELEGRAM_BOT_TOKEN</span>=<span class="env-val">123456789:ABC-xxxx</span>
+<span class="env-key">TELEGRAM_CHAT_ID</span>=<span class="env-val">your_personal_chat_id</span>
+
+<span class="env-comment"># ── MEDICAL DATA APIs (all free, no billing) ────</span>
+<span class="env-key">NCBI_API_KEY</span>=<span class="env-val">your_ncbi_key</span>
+<span class="env-comment"># OpenFDA: no key needed</span>
+<span class="env-comment"># Overpass OSM: no key needed</span>
+<span class="env-comment"># OSRM routing: no key needed</span>
+
+<span class="env-comment"># ── VECTOR DB (local Docker) ─────────────────────</span>
+<span class="env-key">CHROMA_HOST</span>=<span class="env-val">localhost</span>
+<span class="env-key">CHROMA_PORT</span>=<span class="env-val">8001</span>
+
+<span class="env-comment"># ── APP ───────────────────────────────────────────</span>
+<span class="env-key">JWT_SECRET</span>=<span class="env-val">paste_your_32_char_random_string_here</span>
+<span class="env-key">NEXT_PUBLIC_API_URL</span>=<span class="env-val">https://your-app.onrender.com</span>
+<span class="env-key">NEXT_PUBLIC_SUPABASE_URL</span>=<span class="env-val">https://xxxx.supabase.co</span>
+<span class="env-key">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>=<span class="env-val">eyJ...</span>
+<span class="env-key">ENVIRONMENT</span>=<span class="env-val">development</span></pre>
+    </div>
+    <p style="font-size:12px;color:var(--text3);margin-top:10px">Generate JWT_SECRET: <code>python -c "import secrets; print(secrets.token_hex(32))"</code></p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-tag">05 · People</div>
+    <h2>Team Roles & Tasks</h2>
+    <p class="section-lead">6 members. 15 hours. Click each card to see the full task breakdown, timeline, and exactly what each person needs to collect.</p>
+    <div class="team-grid">
+
+      <!-- M1 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(1)">
+          <div class="avatar" style="background:rgba(59,126,255,0.15);color:var(--blue)">M1</div>
+          <div class="member-info"><div class="member-name">Member 1 — Frontend Master</div><div class="member-role">Next.js · Leaflet · shadcn/ui · Framer Motion · PWA</div></div>
+          <span class="expand-icon" id="icon1">+</span>
+        </div>
+        <div class="member-body" id="mb1">
+          <div class="warn-banner">⚡ You carry the demo. If it looks bad, judges don't care how good the backend is. Visual impact over completeness — always.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:00 PM</td><td><div class="task-text">Bootstrap Next.js 14 with TypeScript, Tailwind, shadcn/ui. Push to GitHub. Set up folder structure.</div><div class="task-cmd">npx create-next-app@latest pulse-frontend --typescript --tailwind --app</div></td></tr>
+            <tr><td>7:00–8:30 PM</td><td><div class="task-text">Build global layout: navbar, sidebar with 7 feature links, loading skeletons, dark/light toggle, shared Card + Badge + Button components.</div></td></tr>
+            <tr><td>8:30–10:00 PM</td><td><div class="task-text">Build MedFact Shield page (streaming response + citation cards + verdict badge) and Symptom Navigator page (chat UI + urgency meter + triage result + PDF download button).</div></td></tr>
+            <tr><td>10:00 PM–12:00 AM</td><td><div class="task-text">Medicine Scanner page (camera capture + pill result card showing drug name, dosage, interactions, expiry warning). Emergency Guide page (voice button, step cards, protocol selector, TTS indicator).</div></td></tr>
+            <tr><td>12:00–2:00 AM</td><td><div class="task-text">Resource Locator: Leaflet map with hospital/pharmacy/blood bank markers, facility detail panel on click, routing line overlay, AED highlight.</div><div class="task-cmd">npm install leaflet react-leaflet leaflet.heat</div></td></tr>
+            <tr><td>2:00–5:00 AM</td><td><div class="task-text">Outbreak Radar: full-screen Leaflet heatmap, live WebSocket connection, WHO outbreak pins, district severity sidebar, anomaly alert banner. Make this spectacular — it's the showstopper.</div></td></tr>
+            <tr><td>5:00–7:00 AM</td><td><div class="task-text">Health Dashboard: choropleth with Pakistan GeoJSON, health score cards, Recharts symptom trends, timeline scrubber, JWT-protected route wrapper.</div></td></tr>
+            <tr><td>7:00–8:30 AM</td><td><div class="task-text">PWA: manifest.json + service worker caching for emergency protocols (offline). Framer Motion transitions. Mobile responsiveness pass on all 7 pages.</div></td></tr>
+            <tr><td>8:30–9:00 AM</td><td><div class="task-text">Deploy to Vercel. Set all NEXT_PUBLIC_ env vars in Vercel dashboard. Test every page live. Share URL with team.</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">NEXT_PUBLIC_API_URL</div><div class="req-mini-how">Get from M6 once Render is live. Set in .env.local</div></div>
+            <div class="req-mini"><div class="req-mini-name">Supabase anon key + URL</div><div class="req-mini-how">Get from M2. Needed for Realtime WebSocket on outbreak page</div></div>
+            <div class="req-mini"><div class="req-mini-name">Pakistan GeoJSON file</div><div class="req-mini-how"><a class="req-link" href="https://data.humdata.org/dataset/cod-ab-pak" target="_blank">data.humdata.org →</a> download district boundaries</div></div>
+            <div class="req-mini"><div class="req-mini-name">Vercel account</div><div class="req-mini-how">vercel.com → sign up with GitHub → connect repo → done in 3 min</div></div>
+          </div>
+          <p style="font-size:11px;color:var(--text3);margin-top:12px">No API keys directly — all AI/DB calls go through backend. .env.local only needs NEXT_PUBLIC_ vars.</p>
+        </div>
+      </div>
+
+      <!-- M2 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(2)">
+          <div class="avatar" style="background:rgba(0,232,122,0.12);color:var(--accent)">M2</div>
+          <div class="member-info"><div class="member-name">Member 2 — Backend Lead</div><div class="member-role">FastAPI · Supabase · Upstash Redis · JWT · WebSockets · Celery</div></div>
+          <span class="expand-icon" id="icon2">+</span>
+        </div>
+        <div class="member-body" id="mb2">
+          <div class="warn-banner">⚡ You are the glue. Every other member depends on your endpoints. Get a working /health route live within the first hour and share the URL immediately.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:00 PM</td><td><div class="task-text">Create FastAPI project. Install deps. Connect Supabase + Upstash. Deploy GET /health to Render. Share the URL with everyone.</div><div class="task-cmd">pip install fastapi uvicorn sqlalchemy asyncpg supabase redis celery python-jose pydantic httpx python-dotenv</div></td></tr>
+            <tr><td>7:00–9:00 PM</td><td><div class="task-text">Write full DB schema SQL and run in Supabase SQL editor: symptom_reports, facilities, icd10_codes, drug_interactions, users, outbreak_alerts tables. Enable Realtime on symptom_reports.</div></td></tr>
+            <tr><td>9:00–11:00 PM</td><td><div class="task-text">Scaffold all 7 route files as stubs returning mock JSON. M1 needs these URLs immediately: POST /api/medFact, /api/symptoms/chat, /api/medicine/scan, GET /api/facilities, /api/outbreak/clusters, POST /api/emergency/alert, GET /api/dashboard/stats.</div></td></tr>
+            <tr><td>11:00 PM–1:00 AM</td><td><div class="task-text">JWT auth (POST /auth/login → signed token, dashboard middleware). SSE streaming endpoint for Gemini. WebSocket /ws/outbreak broadcasting Supabase Realtime events.</div></td></tr>
+            <tr><td>1:00–3:00 AM</td><td><div class="task-text">Celery with Upstash broker. Two tasks: (1) fetch_who_rss every hour. (2) run_outbreak_detection every 15 min — calls M6's DBSCAN pipeline and broadcasts via WebSocket.</div></td></tr>
+            <tr><td>3:00–6:00 AM</td><td><div class="task-text">Wire real logic into all stubs using M3's AI functions. Wire POST /api/symptoms/report to save anonymized symptom + lat/lng to symptom_reports.</div></td></tr>
+            <tr><td>6:00–9:30 AM</td><td><div class="task-text">Fix integration bugs. Add CORS for Vercel domain. Rate limiting with slowapi. Final Render deploy with production env vars.</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">Supabase URL + Service Key</div><div class="req-mini-how">app.supabase.com → Settings → API. Need service_role key (not anon) for backend writes</div></div>
+            <div class="req-mini"><div class="req-mini-name">Upstash Redis URL</div><div class="req-mini-how">console.upstash.com → Create DB → copy rediss:// connection string</div></div>
+            <div class="req-mini"><div class="req-mini-name">JWT Secret (generate it)</div><div class="req-mini-how"><code>python -c "import secrets; print(secrets.token_hex(32))"</code></div></div>
+            <div class="req-mini"><div class="req-mini-name">Render account</div><div class="req-mini-how">render.com → New Web Service → connect GitHub → start cmd: uvicorn main:app --host 0.0.0.0 --port $PORT</div></div>
+            <div class="req-mini"><div class="req-mini-name">Gemini API key (from M3)</div><div class="req-mini-how">Backend proxies all AI calls so the key is never exposed to frontend</div></div>
+            <div class="req-mini"><div class="req-mini-name">Telegram Bot Token (from M5)</div><div class="req-mini-how">Backend sends the emergency Telegram message</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M3 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(3)">
+          <div class="avatar" style="background:rgba(181,123,255,0.12);color:var(--purple)">M3</div>
+          <div class="member-info"><div class="member-name">Member 3 — AI / ML Engineer</div><div class="member-role">Gemini · LangChain RAG · ChromaDB · SentenceTransformers · ICD-10</div></div>
+          <span class="expand-icon" id="icon3">+</span>
+        </div>
+        <div class="member-body" id="mb3">
+          <div class="warn-banner">⚡ MedFact and Symptom Navigator are your two deliverables. Judges will test these first. Get ChromaDB running within 30 minutes of build start.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:00 PM</td><td><div class="task-text">Install deps. Start ChromaDB via Docker. Test Gemini API with a basic call. Set up ai/ module: gemini_client.py, rag_chain.py, symptom_engine.py, prompts.py.</div><div class="task-cmd">pip install google-generativeai langchain langchain-community chromadb sentence-transformers medspacy</div></td></tr>
+            <tr><td>7:00–9:00 PM</td><td><div class="task-text">Build MedFact RAG chain. Set up ChromaDB "medical_facts" collection. Load abstracts from M4's ingestion. Build claim decomposer prompt → per sub-claim: similarity search top 5 chunks → Gemini synthesis → verdict + confidence + citations.</div></td></tr>
+            <tr><td>9:00–11:00 PM</td><td><div class="task-text">Test 10 MedFact prompts with real Pakistani WhatsApp health myths (lemon cures dengue, haldi milk, Panadol + Disprin deadly, etc). Tune system prompt until verdicts cite real papers. This is demo content — make it impressive.</div></td></tr>
+            <tr><td>11:00 PM–2:00 AM</td><td><div class="task-text">Build Symptom Navigator engine. System prompt forces Pydantic output: {urgency:1–5, differential:[ICD-10 code+name], red_flags:[], recommended_action, follow_up_question}. Load ICD-10 from DB. Multi-turn: pass last 5 messages as context via Redis memory.</div></td></tr>
+            <tr><td>2:00–4:00 AM</td><td><div class="task-text">Build triage PDF generator via reportlab. Takes final Navigator session output → formatted summary card patient can hand to a doctor. Expose as generate_triage_pdf(session_data) → bytes.</div><div class="task-cmd">pip install reportlab</div></td></tr>
+            <tr><td>4:00–7:00 AM</td><td><div class="task-text">Integration pass — give M2 final ai/ functions as clean imports. Fix schema mismatches with frontend. Add Urdu fallback: detect language → respond in Urdu using Gemini's multilingual capability.</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">Gemini API Key</div><div class="req-mini-how"><a class="req-link" href="https://aistudio.google.com" target="_blank">aistudio.google.com →</a> Get API key — free, instant, no card</div></div>
+            <div class="req-mini"><div class="req-mini-name">Docker (for ChromaDB)</div><div class="req-mini-how"><code>docker run -p 8001:8000 chromadb/chroma</code> — keep terminal open all night</div></div>
+            <div class="req-mini"><div class="req-mini-name">Supabase DB URL (from M2)</div><div class="req-mini-how">Needed to query icd10_codes table for differential diagnosis</div></div>
+            <div class="req-mini"><div class="req-mini-name">PubMed abstracts (from M4)</div><div class="req-mini-how">M4 runs ingestion → fills ChromaDB. You just query it — no setup needed once loaded</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M4 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(4)">
+          <div class="avatar" style="background:rgba(255,179,71,0.12);color:var(--amber)">M4</div>
+          <div class="member-info"><div class="member-name">Member 4 — Data Engineer</div><div class="member-role">PubMed · ICD-10 · DrugBank · OpenStreetMap · Seed data · WHO RSS</div></div>
+          <span class="expand-icon" id="icon4">+</span>
+        </div>
+        <div class="member-body" id="mb4">
+          <div class="warn-banner">⚡ Your work in the first 4 hours determines the quality of every feature. Run PubMed ingestion FIRST — it takes 20 min and the AI team is blocked without it.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:00 PM</td><td><div class="task-text">Install deps. Get DB connection from M2. Confirm ChromaDB running (M3 starts it). Write base ingestion: generic load_and_embed(texts, metadata, collection) function with SentenceTransformers + ChromaDB. Test with 5 dummy texts.</div><div class="task-cmd">pip install sentence-transformers chromadb langchain-community biopython requests pandas</div></td></tr>
+            <tr><td>7:00–7:15 PM</td><td><div class="task-text">IMMEDIATELY kick off PubMed ingestion in a background terminal. Terms: dengue[tiab], typhoid[tiab], malaria[tiab], COVID-19[tiab], hypertension[tiab], diabetes mellitus[tiab], cholera[tiab], tuberculosis Pakistan[tiab]. 700 abstracts × 8 terms = ~5,600 total.</div><div class="task-note">~20–30 min to complete. Let it run while you work on other tasks.</div></td></tr>
+            <tr><td>7:15–9:30 PM</td><td><div class="task-text">Download ICD-10 CM CSV. Write loader: parse CSV → insert ~14,000 rows into icd10_codes table (code, description, category, chapter). Verify row count in Supabase table editor.</div></td></tr>
+            <tr><td>9:30 PM–12:00 AM</td><td><div class="task-text">Download DrugBank open data CSV. Write parser: extract drug name + interaction pairs → insert into drug_interactions table. Also load vocabulary for name lookup. Verify: search Paracetamol, Metformin, Aspirin.</div></td></tr>
+            <tr><td>12:00–2:00 AM</td><td><div class="task-text">OSM Overpass scraper. Pakistan bounding box (23.69,60.87,37.08,77.84). Query: hospital, pharmacy, blood_bank, defibrillator. Parse JSON → insert into facilities with name, type, lat, lng, address. Expect ~3,000 rows.</div><div class="task-cmd">[out:json][timeout:90]; (node["amenity"="hospital"](23.69,60.87,37.08,77.84);); out body;</div></td></tr>
+            <tr><td>2:00–4:00 AM</td><td><div class="task-text">Seed script: 300 reports across Karachi (24.74–24.97, 66.94–67.19), Lahore (31.41–31.65, 74.17–74.42), Islamabad (33.60–33.77, 72.97–73.17). Symptoms: fever, dengue-like, GI, respiratory. Insert via Supabase client.</div></td></tr>
+            <tr><td>4:00–6:00 AM</td><td><div class="task-text">WHO RSS ingestion script (M2's Celery calls it). Parse feed → upsert into outbreak_alerts. Also embed WHO summaries into ChromaDB "who_alerts" collection. Run data_summary.py printing row counts for pitch stat slides.</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">NCBI API Key</div><div class="req-mini-how"><a class="req-link" href="https://www.ncbi.nlm.nih.gov/account" target="_blank">ncbi.nlm.nih.gov →</a> sign up free → My NCBI → API key management</div></div>
+            <div class="req-mini"><div class="req-mini-name">DrugBank open data CSVs</div><div class="req-mini-how"><a class="req-link" href="https://go.drugbank.com/releases/latest#open-data" target="_blank">drugbank.com/open-data →</a> register free → download drug_interactions.csv</div></div>
+            <div class="req-mini"><div class="req-mini-name">ICD-10 CM codes CSV</div><div class="req-mini-how">No account needed. <a class="req-link" href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">cms.gov →</a> search ICD-10 CM tabular → download ZIP</div></div>
+            <div class="req-mini"><div class="req-mini-name">Supabase DB URL (from M2)</div><div class="req-mini-how">DATABASE_URL — all your scripts write to the shared Supabase DB</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M5 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(5)">
+          <div class="avatar" style="background:rgba(255,77,106,0.12);color:var(--red)">M5</div>
+          <div class="member-info"><div class="member-name">Member 5 — Features Engineer</div><div class="member-role">Medicine Scanner · Emergency Guide · Telegram · Voice UI · OCR</div></div>
+          <span class="expand-icon" id="icon5">+</span>
+        </div>
+        <div class="member-body" id="mb5">
+          <div class="warn-banner">⚡ The Emergency Guide voice demo is your moment in the presentation. Rehearse saying "someone is not breathing" to the mic at least 10 times before the demo starts.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:30 PM</td><td><div class="task-text">Install deps. Verify Tesseract: <code>tesseract --version</code>. Set up Telegram bot: @BotFather → /newbot → copy token. Message @userinfobot → get chat_id. Test sending a message via Python immediately.</div><div class="task-cmd">pip install python-telegram-bot pytesseract opencv-python google-generativeai</div></td></tr>
+            <tr><td>7:30–10:00 PM</td><td><div class="task-text">Medicine scanner pipeline. POST /api/medicine/scan accepts base64 image. Step 1: OpenCV preprocessing (grayscale, sharpen, threshold). Step 2: Tesseract OCR (drug name, dosage, expiry). Step 3: Gemini Vision identification. Step 4: OpenFDA /drug/ndc lookup. Merge into structured response.</div></td></tr>
+            <tr><td>10:00 PM–12:00 AM</td><td><div class="task-text">Drug interaction check: identified drug + user's current medications → query drug_interactions table → if found, append warning. Download 10 pill photos from RxList as test images. Test all 10.</div><div class="task-note">Download test pills: Paracetamol, Metformin, Aspirin, Amoxicillin, Omeprazole, Atorvastatin, Omeprazole, Metronidazole, Ibuprofen, Ciprofloxacin</div></td></tr>
+            <tr><td>12:00–2:00 AM</td><td><div class="task-text">Write 15 emergency protocol JSONs. Each: trigger_phrases[], title, steps[{instruction, tip, timer_seconds}], call_ambulance:bool. Protocols: CPR adult/child, choking adult/child, stroke (FAST), severe bleeding, burns, allergic reaction, drowning, seizure, diabetic emergency, heart attack, poisoning, fracture, electric shock.</div></td></tr>
+            <tr><td>2:00–5:00 AM</td><td><div class="task-text">Emergency Guide API: POST /api/emergency/identify (transcribed text → Gemini matches protocol → returns full JSON). POST /api/emergency/alert (lat, lng, situation → Telegram message with Google Maps link). Cache all 15 protocol JSONs in Redis for offline speed.</div></td></tr>
+            <tr><td>5:00–9:30 AM</td><td><div class="task-text">Test voice flow end-to-end: mic → Web Speech ASR → POST /identify → TTS reads each step. Test Telegram alert on your own phone. Edge cases: blurry photo → "image unclear, try again". Drug not in OpenFDA → Gemini-only fallback. No voice → text input fallback.</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">Telegram Bot Token + Chat ID</div><div class="req-mini-how">Telegram → @BotFather → /newbot. Then @userinfobot → copy numeric ID. Share token with M2.</div></div>
+            <div class="req-mini"><div class="req-mini-name">Gemini API Key (vision)</div><div class="req-mini-how">Same as M3's key or generate your own at aistudio.google.com. gemini-1.5-flash handles images.</div></div>
+            <div class="req-mini"><div class="req-mini-name">Tesseract OCR installed</div><div class="req-mini-how">Must be system-level binary. Verify: <code>tesseract --version</code> in terminal.</div></div>
+            <div class="req-mini"><div class="req-mini-name">10 test pill photos</div><div class="req-mini-how"><a class="req-link" href="https://www.rxlist.com/pill-identification-tool/article.htm" target="_blank">rxlist.com →</a> search and save pill photos to test_pills/ folder</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M6 -->
+      <div class="member-card">
+        <div class="member-head" onclick="toggleMember(6)">
+          <div class="avatar" style="background:rgba(99,153,34,0.15);color:var(--accent)">M6</div>
+          <div class="member-info"><div class="member-name">Member 6 — Outbreak ML + DevOps + Pitch</div><div class="member-role">DBSCAN · Prophet · Render deploy · Pitch deck · Demo video</div></div>
+          <span class="expand-icon" id="icon6">+</span>
+        </div>
+        <div class="member-body" id="mb6">
+          <div class="warn-banner">⚡ You own the most visually impressive feature AND the pitch. Record the demo video the moment the outbreak radar works — do not leave it to 9 AM.</div>
+          <div class="sub-heading">Hour-by-hour tasks</div>
+          <table class="task-table">
+            <tr><td>6:10–7:00 PM</td><td><div class="task-text">Create Render account. Connect GitHub repo. Deploy backend (start command: <code>uvicorn main:app --host 0.0.0.0 --port $PORT</code>). Add all env vars in Render dashboard. Share the live URL with everyone immediately.</div><div class="task-cmd">pip install scikit-learn prophet pandas numpy</div></td></tr>
+            <tr><td>7:00–10:00 PM</td><td><div class="task-text">Build DBSCAN cluster detection. Input: (lat, lng, symptom_type, timestamp) from last 24h. DBSCAN: ε=0.02°, min_samples=5. Per cluster: centroid, size, dominant symptom, timestamps. Return ClusterResult list. Test against seeded 300 reports from M4.</div></td></tr>
+            <tr><td>10:00 PM–1:00 AM</td><td><div class="task-text">Build Prophet anomaly detection. Per district: pull 30-day daily symptom counts from DB. Fit Prophet (weekly seasonality). Forecast 3 days. Anomaly if actual > upper 95% CI. Return anomaly_score 0–1 per district.</div></td></tr>
+            <tr><td>1:00–3:00 AM</td><td><div class="task-text">Wire both into Celery task run_outbreak_detection(): query DB → DBSCAN → Prophet → merge → Redis pub/sub → M2's WebSocket → frontend map. Test full pipeline manually end-to-end.</div></td></tr>
+            <tr><td>3:00–5:00 AM</td><td><div class="task-text">Production hardening. All merges into dev (you handle this role). Confirm Render auto-deploys on push. Add /ping wake-up endpoint. Monitor logs for Prophet memory issues.</div></td></tr>
+            <tr><td>5:00–7:00 AM</td><td><div class="task-text">Pitch deck — 10 slides max. S1: "5.7M die from preventable errors yearly". S2: The problem. S3: PULSE intro. S4–S9: One feature per slide with screenshot. S10: Stack + team. One sentence + one visual per slide. No walls of text.</div></td></tr>
+            <tr><td>7:00–8:30 AM</td><td><div class="task-text">3-min demo video. Script: (1) MedFact — paste fake WhatsApp claim → show verdict + PubMed citations. (2) Symptom Navigator — fever + joint pain → triage result. (3) Medicine Scanner — scan pill photo. (4) Outbreak Radar — live heatmap. (5) Emergency Guide — say "someone is not breathing" → voice guidance.</div></td></tr>
+            <tr><td>8:30–9:30 AM</td><td><div class="task-text">Submit: GitHub link, Vercel URL, pitch deck PDF, demo video link. Git tag v1.0.0. Brief whole team on 3-min pitch talking points. Wake Render /ping 30 sec before judges test.</div><div class="task-cmd">git tag -a v1.0.0 -m "BWAI Hackathon submission" && git push origin v1.0.0</div></td></tr>
+          </table>
+          <div class="sub-heading">What you need to collect</div>
+          <div class="req-mini-grid">
+            <div class="req-mini"><div class="req-mini-name">Render account</div><div class="req-mini-how">render.com → sign up with GitHub → New Web Service → connect repo</div></div>
+            <div class="req-mini"><div class="req-mini-name">All env vars (from whole team)</div><div class="req-mini-how">Collect the full .env from M2, M3, M5 → add every var to Render's Environment tab before first deploy</div></div>
+            <div class="req-mini"><div class="req-mini-name">Supabase DB URL (from M2)</div><div class="req-mini-how">DBSCAN + Prophet query symptom_reports directly</div></div>
+            <div class="req-mini"><div class="req-mini-name">Screen recorder</div><div class="req-mini-how">OBS Studio (free) or Windows Game Bar (Win+G) or QuickTime (Mac). Test before 7 AM.</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GIT TIMELINE -->
+<section id="git">
+  <div class="container">
+    <div class="section-tag">06 · Coordination</div>
+    <h2>Git Push Timeline</h2>
+    <p class="section-lead">Sequential push schedule. M2 and M6 own all merges into <code>dev</code>. Nobody else touches <code>dev</code> directly.</p>
+
+    <div class="branch-key">
+      <div class="bk-item"><div class="bk-dot" style="background:#3b7eff"></div>m2/backend</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#00e87a"></div>m1/frontend</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#b57bff"></div>m3/ai-ml</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#ffb347"></div>m4/data</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#ff4d6a"></div>m5/features</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#22d3ee"></div>m6/outbreak</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#E24B4A"></div>MERGE → dev</div>
+      <div class="bk-item"><div class="bk-dot" style="background:#ffb347"></div>⚡ SYNC point</div>
+    </div>
+
+    <!-- Phase 0 -->
+    <div class="phase-marker"><div></div><span class="phase-chip" style="background:rgba(181,123,255,0.1);color:var(--purple)">Phase 0 · Setup · 6:10–7:00 PM</span></div>
+    <div class="git-row"><div class="git-time">6:10 PM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ ALL — pull main, create branch locally</div><div class="git-cmd">git checkout main && git pull && git checkout -b m[N]/[your-branch]</div></div></div>
+    <div class="git-row"><div class="git-time">6:15 PM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#3b7eff"></div>M2/backend — push project skeleton</div><div class="git-sub">Folder structure, requirements.txt, .env.example, empty main.py with /health</div><div class="git-cmd">git commit -m "feat: project skeleton + health endpoint" && git push origin m2/backend</div></div></div>
+    <div class="git-row"><div class="git-time">6:20 PM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>MERGE m2/backend → dev → main (M2 does this once)</div><div class="git-cmd">git checkout dev && git merge m2/backend && git push && git checkout main && git merge dev && git push</div></div></div>
+    <div class="git-row"><div class="git-time">6:25 PM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ ALL — pull main into your branch</div><div class="git-cmd">git checkout m[N]/[your-branch] && git merge main</div></div></div>
+
+    <!-- Phase 1 -->
+    <div class="phase-marker"><div></div><span class="phase-chip" style="background:rgba(0,232,122,0.08);color:var(--accent)">Phase 1 · Foundation · 7:00–10:00 PM</span></div>
+    <div class="git-row"><div class="git-time">7:00 PM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#ffb347"></div>M4/data — push all ingestion scripts</div><div class="git-sub">pubmed_ingest.py, icd10_loader.py, osm_scraper.py, seed_reports.py, drugbank_parser.py</div><div class="git-cmd">git commit -m "feat: all data ingestion scripts" && git push origin m4/data</div></div></div>
+    <div class="git-row"><div class="git-time">8:00 PM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#3b7eff"></div>M2/backend — push DB schema + all stub routes</div><div class="git-sub">All 7 endpoints returning mock JSON so M1 can wire the UI immediately</div><div class="git-cmd">git commit -m "feat: DB schema + stub routes returning mock data" && git push origin m2/backend</div></div></div>
+    <div class="git-row"><div class="git-time">8:10 PM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>MERGE m2/backend → dev (M2 opens PR, M6 merges)</div></div></div>
+    <div class="git-row"><div class="git-time">8:15 PM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ M1, M3, M5 — pull dev now</div><div class="git-cmd">git merge dev</div></div></div>
+    <div class="git-row"><div class="git-time">9:00 PM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>M1/frontend — push initial scaffold</div><div class="git-sub">Global layout, navbar, all 7 page shells with loading skeletons</div><div class="git-cmd">git commit -m "feat: frontend scaffold, layout, all page shells" && git push origin m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">10:00 PM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#b57bff"></div>M3/ai-ml — push RAG pipeline + MedFact chain</div><div class="git-sub">gemini_client.py, rag_chain.py, prompts.py, chroma_utils.py</div><div class="git-cmd">git commit -m "feat: gemini client, RAG chain, MedFact pipeline" && git push origin m3/ai-ml</div></div></div>
+
+    <!-- Phase 2 -->
+    <div class="phase-marker"><div></div><span class="phase-chip" style="background:rgba(59,126,255,0.08);color:var(--blue)">Phase 2 · Core Build · 10:00 PM–2:00 AM</span></div>
+    <div class="git-row"><div class="git-time">10:30 PM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>MERGE m3/ai-ml + m4/data → dev</div><div class="git-cmd">git merge m3/ai-ml && git merge m4/data && git push origin dev</div></div></div>
+    <div class="git-row"><div class="git-time">10:45 PM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ M2, M5, M6 — pull dev</div><div class="git-cmd">git merge dev</div></div></div>
+    <div class="git-row"><div class="git-time">12:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#3b7eff"></div>M2/backend — push real MedFact + Symptoms routes</div><div class="git-sub">SSE streaming live, Redis conversation memory wired, JWT auth middleware added</div><div class="git-cmd">git commit -m "feat: real MedFact + symptoms routes, SSE, JWT" && git push origin m2/backend</div></div></div>
+    <div class="git-row"><div class="git-time">12:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>M1/frontend — push MedFact + Symptom Navigator pages (wired)</div><div class="git-sub">Real fetch calls, streaming text display, urgency meter, citation cards, triage PDF download</div><div class="git-cmd">git commit -m "feat: MedFact and Symptom Navigator pages live" && git push origin m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">1:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#b57bff"></div>M3/ai-ml — push Symptom Navigator engine + PDF generator</div><div class="git-sub">ICD-10 differential, multi-turn memory, Urdu detection, reportlab PDF</div><div class="git-cmd">git commit -m "feat: symptom navigator, ICD-10 triage, PDF generator" && git push origin m3/ai-ml</div></div></div>
+    <div class="git-row"><div class="git-time">1:30 AM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>BIG MERGE — m2 + m3 + m1 → dev (M6 handles)</div><div class="git-sub">Resolve conflicts carefully in this order: m2 first, then m3, then m1</div></div></div>
+    <div class="git-row"><div class="git-time">1:45 AM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ ALL MEMBERS — biggest sync of the night. Pull dev.</div><div class="git-cmd">git merge dev</div></div></div>
+
+    <!-- Phase 3 -->
+    <div class="phase-marker"><div></div><span class="phase-chip" style="background:rgba(255,179,71,0.08);color:var(--amber)">Phase 3 · Features · 2:00–6:00 AM</span></div>
+    <div class="git-row"><div class="git-time">2:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#ff4d6a"></div>M5/features — push Medicine Scanner pipeline</div><div class="git-cmd">git commit -m "feat: medicine scanner, vision + OCR + OpenFDA" && git push origin m5/features</div></div></div>
+    <div class="git-row"><div class="git-time">2:30 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#22d3ee"></div>M6/outbreak — push DBSCAN cluster detection</div><div class="git-cmd">git commit -m "feat: DBSCAN outbreak clustering pipeline" && git push origin m6/outbreak</div></div></div>
+    <div class="git-row"><div class="git-time">3:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>M1/frontend — push Medicine Scanner + Resource Locator pages</div><div class="git-cmd">git commit -m "feat: medicine scanner UI, resource locator map" && git push origin m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">3:30 AM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>MERGE m5/features + m6/outbreak → dev</div></div></div>
+    <div class="git-row"><div class="git-time">3:45 AM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ M1, M2, M5, M6 — pull dev</div><div class="git-cmd">git merge dev</div></div></div>
+    <div class="git-row"><div class="git-time">4:30 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#22d3ee"></div>M6/outbreak — push Prophet anomaly detection + Celery</div><div class="git-cmd">git commit -m "feat: Prophet anomaly detection + Celery scheduler" && git push origin m6/outbreak</div></div></div>
+    <div class="git-row"><div class="git-time">5:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#ff4d6a"></div>M5/features — push Emergency Guide + Telegram alert</div><div class="git-cmd">git commit -m "feat: emergency guide protocols, Telegram alert, voice endpoint" && git push origin m5/features</div></div></div>
+    <div class="git-row"><div class="git-time">5:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>M1/frontend — push Outbreak Radar + Emergency Guide pages</div><div class="git-cmd">git commit -m "feat: outbreak radar live map, emergency guide UI with voice" && git push origin m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">5:30 AM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>MEGA MERGE — all 6 branches → dev (M6 + M2 together)</div><div class="git-sub">Order: m2 → m3 → m4 → m5 → m6 → m1. Resolve one at a time.</div><div class="git-cmd">git merge m2/backend && git merge m3/ai-ml && git merge m4/data && git merge m5/features && git merge m6/outbreak && git merge m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">5:45 AM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ ALL MEMBERS — final dev pull. Full end-to-end test all 7 features. No new features after this — fixes only.</div><div class="git-cmd">git merge dev</div></div></div>
+
+    <!-- Phase 4 -->
+    <div class="phase-marker"><div></div><span class="phase-chip" style="background:rgba(255,77,106,0.08);color:var(--red)">Phase 4 · Polish + Deploy · 6:00–9:00 AM</span></div>
+    <div class="git-row"><div class="git-time">6:00 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>M1/frontend — push Health Dashboard + final polish</div><div class="git-sub">Choropleth, PWA manifest, Framer Motion, mobile fixes</div><div class="git-cmd">git commit -m "feat: health dashboard, PWA, animations, mobile" && git push origin m1/frontend</div></div></div>
+    <div class="git-row"><div class="git-time">6:30 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#3b7eff"></div>M2/backend — push production hardening</div><div class="git-sub">CORS, rate limiting, error handling, /ping wake-up endpoint</div><div class="git-cmd">git commit -m "fix: CORS, rate limiting, prod cleanup" && git push origin m2/backend</div></div></div>
+    <div class="git-row"><div class="git-time">7:00 AM</div><div class="git-event git-merge"><div class="git-title"><div class="git-dot" style="background:#E24B4A"></div>FINAL MERGE — dev → main (M6 + M2 both present)</div><div class="git-sub">After push to main, Render and Vercel auto-deploy. Both people review before merging.</div><div class="git-cmd">git checkout main && git merge dev && git push origin main</div></div></div>
+    <div class="git-row"><div class="git-time">7:15 AM</div><div class="git-event git-deploy"><div class="git-title"><div class="git-dot" style="background:#00e87a"></div>✓ Vercel auto-deploys frontend · ✓ Render auto-deploys backend</div><div class="git-sub">Monitor both dashboards. Hit /ping and /health once live.</div></div></div>
+    <div class="git-row"><div class="git-time">7:30 AM</div><div class="git-event"><div class="git-title"><div class="git-dot" style="background:#22d3ee"></div>M6 — tag the release + start recording demo video</div><div class="git-cmd">git tag -a v1.0.0 -m "BWAI Hackathon submission" && git push origin v1.0.0</div></div></div>
+    <div class="git-row"><div class="git-time">9:00 AM</div><div class="git-event git-sync"><div class="git-title"><div class="git-dot" style="background:#888"></div>⚡ SUBMIT — GitHub ✓ &nbsp;Live URL ✓ &nbsp;Pitch deck ✓ &nbsp;Demo video ✓</div><div class="git-sub">Hit /ping to wake Render 30 seconds before judges test the live URL</div></div></div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="container">
+    <div class="section-tag">07 · Non-negotiables</div>
+    <h2>Three Rules</h2>
+    <p class="section-lead">Violating any of these will cost you hours at the worst possible time.</p>
+    <div class="rule-box"><strong>Rule 1 — Never push broken code to dev.</strong><p>Your personal branch is your sandbox — break things there freely. Only push to dev when your feature runs without crashing. One broken merge blocks all 6 people.</p></div>
+    <div class="rule-box"><strong>Rule 2 — M2 and M6 own all merges into dev.</strong><p>Nobody else touches dev directly. If you're ready to merge, message M2 or M6 in your group chat. They do it. This prevents two people merging simultaneously and creating a conflict war at 3 AM.</p></div>
+    <div class="rule-box"><strong>Rule 3 — Every dev merge is immediately followed by everyone pulling.</strong><p>The moment dev updates, message the group "dev updated — pull now". Everyone runs <code>git merge dev</code> before their next commit. Skipping a sync is how you get a 200-line conflict at 7 AM.</p></div>
+
+    <div class="divider"></div>
+    <h2 style="font-size:22px;margin-bottom:16px">Scoring Breakdown</h2>
+    <div class="two-col">
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:500">Functionality &amp; AI Usage</span><span style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:16px;font-weight:700">40 pts</span></div>
+          <div style="padding:12px 18px;font-size:12px;color:var(--text2)">App core functionality (30 pts) + AI meaningfully integrated (10 pts)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:8px">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:500">Creativity &amp; Problem-Solving</span><span style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:16px;font-weight:700">30 pts</span></div>
+          <div style="padding:12px 18px;font-size:12px;color:var(--text2)">Problem impact (20 pts) + Technical excellence / architecture (10 pts)</div>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:500">Presentation &amp; Demo</span><span style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:16px;font-weight:700">20 pts</span></div>
+          <div style="padding:12px 18px;font-size:12px;color:var(--text2)">Pitch clarity (10 pts) + Demo quality (10 pts)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid rgba(0,232,122,0.2);border-radius:4px;overflow:hidden;margin-top:8px">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:500;color:var(--accent)">Execution Bonus</span><span style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:16px;font-weight:700">+10 pts</span></div>
+          <div style="padding:12px 18px;font-size:12px;color:var(--text2)">Exceptionally polished or complex build within 18h. Medicine scanner + voice emergency guide working live = this is yours.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px;padding:32px;background:var(--surface);border:1px solid var(--border);border-radius:4px">
+      <p style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px">"Every 6 seconds, someone in the developing world dies from a preventable medical error."</p>
+      <p style="font-size:13px;color:var(--text3)">Open with this. End with the voice demo. Everything in between tells the story of how PULSE bridges that gap.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    PULSE · BWAI Hackathon 2026 · DHA Suffa University · Build window: Apr 24 6:10 PM → Apr 25 9:30 AM
+  </div>
+</footer>
+
+<script>
+function scrollTo(id){document.querySelector(id).scrollIntoView({behavior:'smooth'})}
+function toggleStack(head){const body=head.nextElementSibling;const icon=head.querySelector('span:last-child');const open=body.classList.toggle('open');icon.textContent=open?'－':'＋'}
+function toggleMember(n){const body=document.getElementById('mb'+n);const icon=document.getElementById('icon'+n);const open=body.classList.toggle('open');icon.classList.toggle('open',open);icon.textContent=open?'×':'+';}
+function copyEnv(){const text=document.getElementById('env-content').innerText;navigator.clipboard.writeText(text).then(()=>{const btn=document.querySelector('.copy-btn');btn.textContent='copied!';setTimeout(()=>{btn.textContent='copy'},2000)})}
+
+// side nav active state
+const sections=['hero','features','stack','requirements','env','team','git','rules'];
+const dots=document.querySelectorAll('.nav-dot');
+window.addEventListener('scroll',()=>{
+  const scrollY=window.scrollY+200;
+  sections.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el&&el.offsetTop<=scrollY){dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}
+  });
+},{passive:true});
+</script>
+</body>
+</html>
