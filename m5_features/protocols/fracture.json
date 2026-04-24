@@ -1,0 +1,18 @@
+{
+  "id": "fracture",
+  "title": "Fracture (Broken Bone)",
+  "category": "musculoskeletal",
+  "severity_level": 3,
+  "call_ambulance": true,
+  "trigger_phrases": ["broken bone", "fracture", "bone sticking out", "arm broken", "leg broken", "compound fracture", "bone snapped", "fell and broke", "twisted ankle severely", "open fracture"],
+  "immediate_action": "Immobilize the injury. Do NOT try to realign the bone. Call emergency for open/compound fractures.",
+  "steps": [
+    { "step_number": 1, "instruction": "Do NOT move the injured limb. Support it in the position found. If an open fracture (bone visible through skin), cover the wound with a clean dressing.", "tip": "Open fractures are emergencies — bone exposed = infection risk. Keep it clean.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Immobilize the fracture: splint the limb using rigid material (magazine, board, stick). Pad with soft material. Secure with bandages or cloth.", "tip": "Splint should extend beyond joints above and below the fracture.", "timer_seconds": 60 },
+    { "step_number": 3, "instruction": "Apply ice wrapped in cloth to reduce swelling. 20 minutes on, 20 minutes off.", "tip": "NEVER apply ice directly to skin. Use a cloth barrier. Do not apply to open wounds.", "timer_seconds": 1200 },
+    { "step_number": 4, "instruction": "Elevate the injured limb above heart level if possible and not too painful.", "tip": "Elevation reduces swelling. Support with pillows or cushions.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "Monitor for signs of shock (pale, sweaty, rapid pulse) and circulation below the fracture (cold/numb/blue fingers or toes). Loosen splint if circulation is compromised.", "tip": "Check pulses, sensation, and movement in fingers/toes every 15 minutes.", "timer_seconds": 300 }
+  ],
+  "when_to_stop": ["Medical help arrives", "Person is transported safely to hospital"],
+  "do_not": ["Do NOT try to push bone back in", "Do NOT straighten a deformed limb", "Do NOT apply ice directly to skin", "Do NOT give food/water if surgery may be needed"]
+}
