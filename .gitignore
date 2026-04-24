@@ -1,12 +1,12 @@
 # ============================================================
-# PULSE M5 Features — .gitignore
+# PULSE — .gitignore (All modules)
 # ============================================================
 
-# --- Environment ---
+# --- Environment variables — NEVER commit secrets ---
 .env
 .env.local
-.env.production
 .env.*.local
+.env.production
 backend/.env
 
 # --- Python ---
@@ -22,7 +22,7 @@ build/
 *.pyo
 *.pyd
 
-# --- Virtual Environment ---
+# --- Virtual environments ---
 venv/
 .venv/
 env/
@@ -37,12 +37,12 @@ ENV/
 *.suo
 *.user
 
-# --- OS ---
+# --- OS files ---
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# --- Test artifacts ---
+# --- Test outputs ---
 .pytest_cache/
 htmlcov/
 .coverage
