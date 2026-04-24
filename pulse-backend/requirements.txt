@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+supabase
+redis
+celery
+python-jose[cryptography]
+pydantic[v2]
+pydantic-settings
+httpx
+python-dotenv
+slowapi
+feedparser
+websockets
+python-telegram-bot
+google-generativeai
