@@ -1,0 +1,127 @@
+PULSE MedFact Shield -- Pakistani Myths Test Results
+======================================================================
+
+MYTH #1
+Claim   : Drinking lemon juice cures dengue fever and increases platelet count
+Context : Very common WhatsApp myth in Pakistan during dengue season
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 0.7s
+Summary : The claim that lemon juice cures dengue is false. There is no specific antiviral treatment for dengue fever.
+Safe advice: Seek immediate medical attention.
+Citations (1):
+  - Protective Role of Vitamins C, D, and K in the Management of Dengue
+    Finding: No specific antiviral medication is available.
+
+----------------------------------------------------------------------
+
+MYTH #2
+Claim   : Haldi doodh (turmeric milk) cures COVID-19 and prevents coronavirus infection
+Context : Spread widely during COVID-19 pandemic in Pakistan
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.85
+Chunks retrieved: 5 | Time: 0.2s
+Summary : While turmeric has anti-inflammatory properties, there is no clinical evidence it cures COVID-19 or prevents infection.
+Safe advice: Follow standard COVID-19 protocols and consult a doctor.
+
+----------------------------------------------------------------------
+
+MYTH #3
+Claim   : Taking Panadol (paracetamol) and Disprin (aspirin) together causes instant death
+Context : Dangerous myth that stops people from taking needed pain relief
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 0.95
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Taking paracetamol and aspirin together does not cause instant death. However, combining them without medical supervision increases the risk of gastrointestinal bleeding.
+Safe advice: Consult a pharmacist before mixing pain relievers.
+
+----------------------------------------------------------------------
+
+MYTH #4
+Claim   : Drinking camel urine cures cancer and many serious diseases
+Context : Spread in religious contexts, dangerous as it can transmit MERS
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 0.1s
+Summary : There is no scientific evidence that camel urine cures cancer. The WHO strictly advises against consuming camel urine due to the high risk of contracting MERS-CoV.
+Safe advice: Seek evidence-based cancer treatment from an oncologist.
+
+----------------------------------------------------------------------
+
+MYTH #5
+Claim   : Eating raw garlic every morning prevents and cures tuberculosis (TB)
+Context : Common in rural Pakistan, people delay proper TB treatment
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.9
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Garlic has mild antimicrobial properties, but it cannot cure or prevent Tuberculosis (TB). TB requires a strict, months-long course of specific antibiotics (ATT).
+Safe advice: Visit a clinic immediately for proper TB diagnosis and antibiotics.
+
+----------------------------------------------------------------------
+
+MYTH #6
+Claim   : Applying toothpaste on burns heals them faster and prevents scarring
+Context : Extremely common home remedy - actually causes serious infections
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 0.2s
+Summary : Applying toothpaste to burns is dangerous. It traps heat, worsens tissue damage, and can cause severe infections due to its abrasive ingredients.
+Safe advice: Cool the burn with running water for 10-20 minutes and seek medical help.
+
+----------------------------------------------------------------------
+
+MYTH #7
+Claim   : Black seed (kalonji) oil cures every disease including diabetes and heart disease
+Context : Based on Hadith misquotation, sells as a miracle cure in Pakistan
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.88
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Black seed oil shows some potential for managing blood sugar, but it does not 'cure every disease' and cannot replace prescribed medication for diabetes or heart disease.
+Safe advice: Use only as a dietary supplement alongside prescribed medical treatments.
+Citations (1):
+  - Harnessing Herbal Power: A Systematic Review of Phytopharmaceuticals in Type 2 D
+    Finding: Discusses herbal medicine effectiveness in treating T2DM.
+
+----------------------------------------------------------------------
+
+MYTH #8
+Claim   : Children should not be vaccinated because vaccines cause autism
+Context : Major public health issue in Pakistan, causing polio outbreaks
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Extensive global scientific consensus confirms there is absolutely no link between vaccines and autism. The original study proposing this was retracted and proven fraudulent.
+Safe advice: Ensure children receive all scheduled vaccinations to prevent deadly diseases.
+
+----------------------------------------------------------------------
+
+MYTH #9
+Claim   : Drinking hot water with honey and ginger completely cures typhoid fever
+Context : People avoid antibiotics for typhoid and use this instead
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 0.98
+Chunks retrieved: 5 | Time: 0.2s
+Summary : Typhoid fever is caused by Salmonella bacteria and can only be cured with specific antibiotics. Hot water, honey, and ginger may soothe a throat but cannot kill the typhoid bacteria.
+Safe advice: See a doctor immediately for a blood culture and antibiotic prescription.
+
+----------------------------------------------------------------------
+
+MYTH #10
+Claim   : High fever in children should be treated with cold water baths and ice packs immediately
+Context : Dangerous advice -- can cause febrile seizures and shock
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.95
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Using ice cold water or ice packs for a child's fever is dangerous because it can cause shivering, which actually raises the core body temperature and can induce shock.
+Safe advice: Use lukewarm tap water for sponging and give age-appropriate paracetamol.
+
+----------------------------------------------------------------------
+
+
+SUMMARY
+======================================================================
+Total myths tested: 10
+Matched expected verdict: 10/10
+Average confidence: 0.95
+Average citations per claim: 0.2
+Average response time: 0.2s
