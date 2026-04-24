@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import Optional
 from dataclasses import dataclass, field
 
+import redis.asyncio as redis
+
 from m5_features.config import settings
 from m5_features.ai.gemini_client import gemini_client
 
@@ -75,6 +77,45 @@ class ProtocolMatcher:
                 logger.error(f"Failed to load {filepath}: {e}")
 
         logger.info(f"Loaded {len(self.protocols)} emergency protocols")
+
+    async def sync_with_redis(self) -> None:
+        """
+        Synchronize loaded protocols with Redis cache.
+        
+        If Redis has the protocols, load them from Redis (for distributed speed).
+        If Redis is empty, push the locally loaded JSON protocols to Redis.
+        Fails gracefully if Redis is unavailable.
+        """
+        if not settings.REDIS_URL:
+            logger.info("REDIS_URL not configured. Skipping Redis synchronization.")
+            return
+
+        try:
+            r = redis.Redis.from_url(settings.REDIS_URL, decode_responses=True)
+            
+            # Check if protocols exist in Redis
+            cached_protocols = await r.hgetall("pulse:protocols")
+            
+            if cached_protocols:
+                logger.info(f"Found {len(cached_protocols)} protocols in Redis. Loading from cache.")
+                for protocol_id, protocol_json in cached_protocols.items():
+                    try:
+                        self.protocols[protocol_id] = json.loads(protocol_json)
+                    except json.JSONDecodeError:
+                        logger.error(f"Invalid JSON in Redis cache for protocol {protocol_id}")
+            else:
+                logger.info("Redis cache empty. Pushing local protocols to Redis.")
+                if self.protocols:
+                    mapping = {
+                        pid: json.dumps(p_data) 
+                        for pid, p_data in self.protocols.items()
+                    }
+                    await r.hset("pulse:protocols", mapping=mapping)
+                    logger.info(f"Successfully pushed {len(self.protocols)} protocols to Redis.")
+                    
+            await r.aclose()
+        except Exception as e:
+            logger.error(f"Redis synchronization failed: {e}. Falling back to local protocols.")
 
     def get_all_protocol_ids(self) -> list[str]:
         """Return a list of all available protocol IDs."""

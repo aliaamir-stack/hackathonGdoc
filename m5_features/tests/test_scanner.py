@@ -155,9 +155,10 @@ class TestDrugInteractionChecker:
         """Set up test fixtures."""
         self.checker = DrugInteractionChecker()
 
-    def test_aspirin_warfarin_interaction(self):
+    @pytest.mark.asyncio
+    async def test_aspirin_warfarin_interaction(self):
         """Test known high-severity interaction: aspirin + warfarin."""
-        result = self.checker.check_interactions("aspirin", ["warfarin"])
+        result = await self.checker.check_interactions("aspirin", ["warfarin"])
         assert result.has_interactions is True
         assert len(result.interactions) > 0
         assert any(
@@ -165,35 +166,40 @@ class TestDrugInteractionChecker:
             for i in result.interactions
         )
 
-    def test_paracetamol_alcohol_interaction(self):
+    @pytest.mark.asyncio
+    async def test_paracetamol_alcohol_interaction(self):
         """Test known interaction: paracetamol + alcohol."""
-        result = self.checker.check_interactions("paracetamol", ["alcohol"])
+        result = await self.checker.check_interactions("paracetamol", ["alcohol"])
         assert result.has_interactions is True
 
-    def test_no_interaction(self):
+    @pytest.mark.asyncio
+    async def test_no_interaction(self):
         """Test drugs with no known interactions in local DB."""
-        result = self.checker.check_interactions(
+        result = await self.checker.check_interactions(
             "vitamin_c", ["vitamin_d"]
         )
         assert result.has_interactions is False
         assert len(result.interactions) == 0
 
-    def test_empty_medications_list(self):
+    @pytest.mark.asyncio
+    async def test_empty_medications_list(self):
         """Test with empty medication list."""
-        result = self.checker.check_interactions("aspirin", [])
+        result = await self.checker.check_interactions("aspirin", [])
         assert result.has_interactions is False
 
-    def test_multiple_interactions(self):
+    @pytest.mark.asyncio
+    async def test_multiple_interactions(self):
         """Test drug with multiple interactions."""
-        result = self.checker.check_interactions(
+        result = await self.checker.check_interactions(
             "ibuprofen", ["aspirin", "warfarin", "lithium"]
         )
         assert result.has_interactions is True
         assert len(result.interactions) >= 2
 
-    def test_reverse_lookup(self):
+    @pytest.mark.asyncio
+    async def test_reverse_lookup(self):
         """Test that interaction check works in both directions."""
-        result = self.checker.check_interactions("warfarin", ["aspirin"])
+        result = await self.checker.check_interactions("warfarin", ["aspirin"])
         assert result.has_interactions is True
 
     def test_known_interactions_dict_populated(self):

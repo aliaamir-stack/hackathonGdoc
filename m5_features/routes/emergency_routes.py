@@ -11,6 +11,12 @@ Endpoints:
 import logging
 from fastapi import APIRouter, HTTPException
 
+# ==========================================
+# NOTE FOR M2 (Backend Lead):
+# Call `await protocol_matcher.sync_with_redis()` in your main.py
+# lifespan/startup event to cache the protocols in Upstash Redis!
+# ==========================================
+
 from m5_features.models.emergency_models import (
     EmergencyIdentifyRequest,
     EmergencyIdentifyResponse,

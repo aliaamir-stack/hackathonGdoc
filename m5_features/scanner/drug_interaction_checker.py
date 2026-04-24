@@ -7,10 +7,13 @@ interactions and Gemini AI for comprehensive checking.
 """
 
 import logging
+import httpx
+import asyncio
 from typing import Optional
 from dataclasses import dataclass, field
 
 from m5_features.ai.gemini_client import gemini_client
+from m5_features.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +92,7 @@ class DrugInteractionChecker:
     3. Merge results with severity ratings
     """
 
-    def check_interactions(
+    async def check_interactions(
         self,
         identified_drug: str,
         current_medications: list[str],
@@ -111,9 +114,14 @@ class DrugInteractionChecker:
 
         drug_lower = identified_drug.lower().strip()
 
-        # Step 1: Check local database
-        local_interactions = self._check_local(drug_lower, current_medications)
-        result.interactions.extend(local_interactions)
+        # Step 1: Check Supabase database, fallback to local database
+        db_interactions = await self._check_database_async(drug_lower, current_medications)
+        if db_interactions is not None:
+            result.interactions.extend(db_interactions)
+        else:
+            logger.warning("Database check failed or unavailable, falling back to local KNOWN_INTERACTIONS")
+            local_interactions = self._check_local(drug_lower, current_medications)
+            result.interactions.extend(local_interactions)
 
         # Step 2: AI-powered check for comprehensive analysis
         ai_result = self._check_with_ai(identified_drug, current_medications)
@@ -127,6 +135,58 @@ class DrugInteractionChecker:
             f"{len(result.interactions)} interactions found"
         )
         return result
+
+    async def _check_database_async(self, drug: str, medications: list[str]) -> Optional[list[dict]]:
+        """
+        Query the Supabase REST API for interactions.
+        Returns None if the database is unconfigured or the request fails,
+        triggering the local fallback.
+        """
+        if not settings.SUPABASE_URL or not settings.SUPABASE_SERVICE_KEY:
+            return None
+
+        url = f"{settings.SUPABASE_URL.rstrip('/')}/rest/v1/drug_interactions"
+        headers = {
+            "apikey": settings.SUPABASE_SERVICE_KEY,
+            "Authorization": f"Bearer {settings.SUPABASE_SERVICE_KEY}",
+            "Accept": "application/json"
+        }
+        
+        # Build query: drug_a matches identified drug OR drug_b matches identified drug
+        query = f"?or=(drug_a.ilike.*{drug}*,drug_b.ilike.*{drug}*)"
+        
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(url + query, headers=headers, timeout=5.0)
+                if response.status_code != 200:
+                    logger.error(f"Supabase query failed: {response.status_code} {response.text}")
+                    return None
+                    
+                data = response.json()
+                interactions = []
+                
+                # Cross-reference with current_medications
+                for row in data:
+                    drug_a = row.get("drug_a", "").lower()
+                    drug_b = row.get("drug_b", "").lower()
+                    
+                    for med in medications:
+                        med_lower = med.lower().strip()
+                        # If the row matches one of our current meds as well
+                        if med_lower in drug_a or med_lower in drug_b:
+                            interactions.append({
+                                "drug_a": row.get("drug_a"),
+                                "drug_b": row.get("drug_b"),
+                                "severity": row.get("severity") or "moderate",
+                                "effect": row.get("description", "Potential interaction detected"),
+                                "source": "supabase_database",
+                            })
+                            
+                return interactions
+                
+        except Exception as e:
+            logger.error(f"Failed to query Supabase: {e}")
+            return None
 
     def _check_local(
         self,

@@ -141,7 +141,7 @@ class MedicineScanner:
             # Stage 5: Drug interaction check
             if result.drug_name and current_medications:
                 logger.info("Stage 5: Checking drug interactions...")
-                interaction_result = drug_interaction_checker.check_interactions(
+                interaction_result = await drug_interaction_checker.check_interactions(
                     result.drug_name, current_medications
                 )
                 result.interactions = interaction_result.interactions

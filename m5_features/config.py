@@ -45,6 +45,13 @@ class Settings:
     API_PORT: int = int(os.getenv("API_PORT", "8000"))
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
 
+    # --- Database (Supabase) ---
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
+    SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_KEY", "")
+
+    # --- Cache (Redis) ---
+    REDIS_URL: str = os.getenv("REDIS_URL", "")
+
     # --- External APIs ---
     OPENFDA_BASE_URL: str = "https://api.fda.gov/drug"
     OPENFDA_NDC_ENDPOINT: str = f"{OPENFDA_BASE_URL}/ndc.json"
