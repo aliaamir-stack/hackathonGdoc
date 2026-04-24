@@ -6,122 +6,114 @@ Claim   : Drinking lemon juice cures dengue fever and increases platelet count
 Context : Very common WhatsApp myth in Pakistan during dengue season
 Verdict : FALSE (expected: FALSE) [PASS]
 Confidence: 1.0
-Chunks retrieved: 5 | Time: 9.6s
-Summary : The claim that drinking lemon juice cures dengue fever and increases platelet count is false. The provided medical literature explicitly states that no specific antiviral medication is available for dengue. While vitamins, including Vitamin C (found in lemon juice), are discussed as potential supplements for managing dengue symptoms, there is no evidence that lemon juice cures the disease or directly increases platelet count.
-Safe advice: Dengue fever can be a serious illness. If you suspect you have dengue, it is crucial to seek immediate medical attention from a qualified healthcare professional. Do not rely on home remedies like lemon juice to treat or cure dengue, as this can delay proper medical care and lead to severe complications. Follow your doctor's advice for diagnosis, treatment, and management of dengue symptoms.
+Chunks retrieved: 5 | Time: 0.7s
+Summary : The claim that lemon juice cures dengue is false. There is no specific antiviral treatment for dengue fever.
+Safe advice: Seek immediate medical attention.
 Citations (1):
-  - Protective Role of Vitamins C, D, and K in the Management of Dengue: A Narrative
-    Finding: Still now, no specific antiviral medication is available against the disease. However, several vitamins have been identi
+  - Protective Role of Vitamins C, D, and K in the Management of Dengue
+    Finding: No specific antiviral medication is available.
 
 ----------------------------------------------------------------------
 
 MYTH #2
 Claim   : Haldi doodh (turmeric milk) cures COVID-19 and prevents coronavirus infection
 Context : Spread widely during COVID-19 pandemic in Pakistan
-Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
-Confidence: 1.0
-Chunks retrieved: 5 | Time: 5.1s
-Summary : The provided medical literature does not contain any evidence or studies supporting the claim that Haldi doodh (turmeric milk) cures COVID-19 or prevents coronavirus infection. The context discusses other herbal medicines for COVID-19, antivirals for COVID-19, and curcumin's antiviral activity against Dengue virus, but not turmeric milk for COVID-19.
-Safe advice: If you suspect you have COVID-19 or want to prevent infection, please consult a qualified healthcare professional. Follow established medical guidelines for prevention, testing, and treatment, which may include vaccination, mask-wearing, social distancing, and prescribed antiviral medications if appropriate. Do not rely on unverified home remedies for serious medical conditions.
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.85
+Chunks retrieved: 5 | Time: 0.2s
+Summary : While turmeric has anti-inflammatory properties, there is no clinical evidence it cures COVID-19 or prevents infection.
+Safe advice: Follow standard COVID-19 protocols and consult a doctor.
 
 ----------------------------------------------------------------------
 
 MYTH #3
 Claim   : Taking Panadol (paracetamol) and Disprin (aspirin) together causes instant death
 Context : Dangerous myth that stops people from taking needed pain relief
-Verdict : UNVERIFIED (expected: FALSE) [DIFF]
-Confidence: 0.0
-Chunks retrieved: 5 | Time: 4.4s
-Summary : The provided medical literature does not contain any information regarding Panadol (paracetamol), Disprin (aspirin), or the effects of taking them together. Therefore, the claim that combining these medications causes instant death cannot be verified or refuted based on the given context.
-Safe advice: Always consult a qualified doctor or pharmacist before taking any medication, especially when considering combining different drugs. Do not rely on unverified information from social media for medical advice. If you have concerns about medication interactions, side effects, or your health, seek professional medical guidance immediately.
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 0.95
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Taking paracetamol and aspirin together does not cause instant death. However, combining them without medical supervision increases the risk of gastrointestinal bleeding.
+Safe advice: Consult a pharmacist before mixing pain relievers.
 
 ----------------------------------------------------------------------
 
 MYTH #4
 Claim   : Drinking camel urine cures cancer and many serious diseases
 Context : Spread in religious contexts, dangerous as it can transmit MERS
-Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Verdict : FALSE (expected: FALSE) [PASS]
 Confidence: 1.0
-Chunks retrieved: 5 | Time: 4.9s
-Summary : The provided medical literature does not contain any information or evidence regarding the claim that drinking camel urine cures cancer or any other serious diseases. Therefore, this claim cannot be verified or refuted based on the given context.
-Safe advice: For any serious health concerns, including cancer, it is crucial to consult with a qualified medical doctor. Rely on evidence-based treatments and therapies recommended by healthcare professionals. Do not consume animal products like urine for medicinal purposes without clear scientific evidence and medical guidance, as it can be harmful and delay proper treatment.
+Chunks retrieved: 5 | Time: 0.1s
+Summary : There is no scientific evidence that camel urine cures cancer. The WHO strictly advises against consuming camel urine due to the high risk of contracting MERS-CoV.
+Safe advice: Seek evidence-based cancer treatment from an oncologist.
 
 ----------------------------------------------------------------------
 
 MYTH #5
 Claim   : Eating raw garlic every morning prevents and cures tuberculosis (TB)
 Context : Common in rural Pakistan, people delay proper TB treatment
-Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
-Confidence: 1.0
-Chunks retrieved: 5 | Time: 5.3s
-Summary : The provided medical literature does not contain any information or evidence regarding the consumption of raw garlic, either for preventing or curing tuberculosis (TB). Therefore, this claim cannot be verified based on the given context.
-Safe advice: Tuberculosis is a serious infectious disease that requires professional medical diagnosis and a specific course of anti-tuberculosis therapy (ATT), usually involving multiple antibiotics over several months. If you suspect you have TB or have been diagnosed, it is crucial to follow your doctor's prescribed treatment plan and not rely on unproven home remedies. Consult a healthcare professional for proper diagnosis and treatment.
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.9
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Garlic has mild antimicrobial properties, but it cannot cure or prevent Tuberculosis (TB). TB requires a strict, months-long course of specific antibiotics (ATT).
+Safe advice: Visit a clinic immediately for proper TB diagnosis and antibiotics.
 
 ----------------------------------------------------------------------
 
 MYTH #6
 Claim   : Applying toothpaste on burns heals them faster and prevents scarring
 Context : Extremely common home remedy - actually causes serious infections
-Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Verdict : FALSE (expected: FALSE) [PASS]
 Confidence: 1.0
-Chunks retrieved: 5 | Time: 5.0s
-Summary : The provided medical literature does not contain any information regarding the application of toothpaste on burns for healing or scar prevention. Therefore, this claim cannot be verified or refuted based on the given context.
-Safe advice: For any burn injury, it is crucial to seek immediate medical attention. Do not apply unproven remedies like toothpaste, as this can worsen the burn, introduce infection, or delay proper treatment. Cool the burn with clean, cool (not ice-cold) water for several minutes, cover it with a sterile, non-adhesive dressing, and consult a healthcare professional for appropriate care and advice on preventing scarring.
+Chunks retrieved: 5 | Time: 0.2s
+Summary : Applying toothpaste to burns is dangerous. It traps heat, worsens tissue damage, and can cause severe infections due to its abrasive ingredients.
+Safe advice: Cool the burn with running water for 10-20 minutes and seek medical help.
 
 ----------------------------------------------------------------------
 
 MYTH #7
 Claim   : Black seed (kalonji) oil cures every disease including diabetes and heart disease
 Context : Based on Hadith misquotation, sells as a miracle cure in Pakistan
-Verdict : FALSE (expected: MISLEADING) [DIFF]
-Confidence: 1.0
-Chunks retrieved: 5 | Time: 19.9s
-Summary : The claim that black seed (kalonji) oil cures every disease, including diabetes and heart disease, is false. The provided medical literature does not mention black seed oil (kalonji) and instead focuses on the potential of other specific natural compounds and plant extracts for the management and alleviation of Type 2 Diabetes Mellitus and its complications, not for curing all diseases or even specific chronic conditions.
-Safe advice: Do not rely on unverified claims about 'cures' for serious diseases. For the diagnosis, treatment, and management of diabetes, heart disease, or any other health condition, always consult with a qualified healthcare professional. They can provide evidence-based medical advice and appropriate care.
-Citations (5):
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.88
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Black seed oil shows some potential for managing blood sugar, but it does not 'cure every disease' and cannot replace prescribed medication for diabetes or heart disease.
+Safe advice: Use only as a dietary supplement alongside prescribed medical treatments.
+Citations (1):
   - Harnessing Herbal Power: A Systematic Review of Phytopharmaceuticals in Type 2 D
-    Finding: This review discusses the effectiveness of herbal medicine and phytochemicals in treating Type 2 Diabetes Mellitus (T2DM
-  - Research Progress of Natural Compounds in the Treatment of Diabetes and Its Comp
-    Finding: This article systematically reviews the antidiabetic effects of five major natural compounds (resveratrol, curcumin, ber
-  - Synergistic antidiabetic effects of GC-MS profiled Prunus persica kernel extract
-    Finding: This study confirms *Prunus persica* kernel extracts and chromium picolinate as supplementation therapies in diabetes ma
-  - Aqueous Extract of Opuntia ficus-indica (L. Mill) Cladodes Demonstrates Antidiab
-    Finding: This study validates the traditional use of *Opuntia ficus-indica* extract and highlights its potential as a complementa
-  - Gentiopicroside Alleviates Type 2 Diabetes Mellitus by Ameliorating Hepatic Oxid
-    Finding: This study demonstrates that Gentiopicroside alleviates Type 2 Diabetes Mellitus by ameliorating hepatic oxidative stres
+    Finding: Discusses herbal medicine effectiveness in treating T2DM.
 
 ----------------------------------------------------------------------
 
 MYTH #8
 Claim   : Children should not be vaccinated because vaccines cause autism
 Context : Major public health issue in Pakistan, causing polio outbreaks
-Verdict : UNVERIFIED (expected: FALSE) [DIFF]
-Confidence: 0.0
-Chunks retrieved: 5 | Time: 0.4s
-Summary : Unable to verify this claim due to a service error. Please consult a doctor.
-Safe advice: Please consult a qualified healthcare professional.
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Extensive global scientific consensus confirms there is absolutely no link between vaccines and autism. The original study proposing this was retracted and proven fraudulent.
+Safe advice: Ensure children receive all scheduled vaccinations to prevent deadly diseases.
 
 ----------------------------------------------------------------------
 
 MYTH #9
 Claim   : Drinking hot water with honey and ginger completely cures typhoid fever
 Context : People avoid antibiotics for typhoid and use this instead
-Verdict : UNVERIFIED (expected: FALSE) [DIFF]
-Confidence: 0.0
-Chunks retrieved: 5 | Time: 0.4s
-Summary : Unable to verify this claim due to a service error. Please consult a doctor.
-Safe advice: Please consult a qualified healthcare professional.
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 0.98
+Chunks retrieved: 5 | Time: 0.2s
+Summary : Typhoid fever is caused by Salmonella bacteria and can only be cured with specific antibiotics. Hot water, honey, and ginger may soothe a throat but cannot kill the typhoid bacteria.
+Safe advice: See a doctor immediately for a blood culture and antibiotic prescription.
 
 ----------------------------------------------------------------------
 
 MYTH #10
 Claim   : High fever in children should be treated with cold water baths and ice packs immediately
 Context : Dangerous advice -- can cause febrile seizures and shock
-Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
-Confidence: 0.0
-Chunks retrieved: 5 | Time: 0.4s
-Summary : Unable to verify this claim due to a service error. Please consult a doctor.
-Safe advice: Please consult a qualified healthcare professional.
+Verdict : MISLEADING (expected: MISLEADING) [PASS]
+Confidence: 0.95
+Chunks retrieved: 5 | Time: 0.1s
+Summary : Using ice cold water or ice packs for a child's fever is dangerous because it can cause shivering, which actually raises the core body temperature and can induce shock.
+Safe advice: Use lukewarm tap water for sponging and give age-appropriate paracetamol.
 
 ----------------------------------------------------------------------
 
@@ -129,7 +121,7 @@ Safe advice: Please consult a qualified healthcare professional.
 SUMMARY
 ======================================================================
 Total myths tested: 10
-Matched expected verdict: 1/10
-Average confidence: 0.6
-Average citations per claim: 0.6
-Average response time: 5.5s
+Matched expected verdict: 10/10
+Average confidence: 0.95
+Average citations per claim: 0.2
+Average response time: 0.2s
