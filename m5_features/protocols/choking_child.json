@@ -1,0 +1,22 @@
+{
+  "id": "choking_child",
+  "title": "Choking — Child/Infant",
+  "category": "airway",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": [
+    "baby choking", "child choking", "infant choking", "toddler choking",
+    "baby swallowed something", "child can't breathe", "baby gagging",
+    "small object in throat", "child swallowed toy"
+  ],
+  "immediate_action": "If the child cannot cry, cough, or breathe — act immediately.",
+  "steps": [
+    { "step_number": 1, "instruction": "For INFANTS: Lay face-down on your forearm, head lower than body. Support the head. Give 5 back blows between shoulder blades.", "tip": "Use the heel of your hand. Gravity helps — keep head lower than chest.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Flip infant face-up. Give 5 chest thrusts using 2 fingers on the breastbone, just below the nipple line.", "tip": "Press about 1.5 inches deep. Quick, sharp thrusts.", "timer_seconds": 15 },
+    { "step_number": 3, "instruction": "For CHILDREN (1-12 years): Stand or kneel behind. Give 5 back blows, then 5 abdominal thrusts (Heimlich). Same as adult but with less force.", "tip": "Kneel to the child's level. Adjust force for size.", "timer_seconds": 30 },
+    { "step_number": 4, "instruction": "Repeat cycles until object comes out. Check the mouth between cycles — remove visible objects only.", "tip": "NEVER do a blind finger sweep in a child's mouth — you may push the object deeper.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "If the child becomes unconscious: call emergency services, begin CPR. Check mouth before each rescue breath.", "tip": "Chest compressions during CPR may dislodge the object.", "timer_seconds": 30 }
+  ],
+  "when_to_stop": ["Object expelled", "Child can breathe/cry/cough", "Child becomes unconscious — start CPR"],
+  "do_not": ["Do NOT do abdominal thrusts on infants under 1 year (use back blows + chest thrusts)", "Do NOT do blind finger sweeps", "Do NOT hold baby upside down by the ankles"]
+}

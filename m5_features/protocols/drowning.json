@@ -1,0 +1,18 @@
+{
+  "id": "drowning",
+  "title": "Drowning Rescue",
+  "category": "respiratory",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": ["drowning", "fell in water", "underwater", "can't swim", "child in water", "pool accident", "near drowning", "water rescue", "submersion"],
+  "immediate_action": "Call emergency services. Do NOT enter water unless trained. Reach or throw something.",
+  "steps": [
+    { "step_number": 1, "instruction": "Call emergency services. Do NOT jump in unless you are a trained swimmer — drowning victims can pull rescuers under.", "tip": "Reach with a pole, branch, or towel. Throw a flotation device, ball, or container.", "timer_seconds": 15 },
+    { "step_number": 2, "instruction": "Once out of water: check for responsiveness and breathing. If not breathing, begin rescue breaths immediately — give 5 initial breaths.", "tip": "Drowning is an airway problem. Rescue breaths are critical.", "timer_seconds": 20 },
+    { "step_number": 3, "instruction": "If no pulse after rescue breaths, begin full CPR: 30 compressions + 2 breaths.", "tip": "Do not waste time trying to drain water from lungs — start CPR immediately.", "timer_seconds": 30 },
+    { "step_number": 4, "instruction": "Continue CPR until emergency services arrive. Drowning victims can recover even after prolonged submersion — do NOT give up.", "tip": "Cold water submersion victims have survived after 30+ minutes. Keep going.", "timer_seconds": 300 },
+    { "step_number": 5, "instruction": "Once breathing resumes, place in recovery position. Keep warm — remove wet clothing and cover with blankets.", "tip": "Monitor closely — secondary drowning can occur hours later. Hospital visit is mandatory.", "timer_seconds": 60 }
+  ],
+  "when_to_stop": ["Paramedics arrive", "Person is breathing normally"],
+  "do_not": ["Do NOT enter water unless trained — use reach/throw methods", "Do NOT try to drain water from lungs", "Do NOT assume recovery — always go to hospital"]
+}

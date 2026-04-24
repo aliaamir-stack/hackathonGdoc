@@ -1,0 +1,22 @@
+{
+  "id": "choking_adult",
+  "title": "Choking — Adult",
+  "category": "airway",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": [
+    "choking", "can't breathe", "something stuck in throat", "food stuck",
+    "airway blocked", "gasping", "clutching throat", "Heimlich", "abdominal thrusts",
+    "person choking on food"
+  ],
+  "immediate_action": "Ask: 'Are you choking?' If they cannot speak, cough, or breathe — act immediately.",
+  "steps": [
+    { "step_number": 1, "instruction": "Encourage them to cough forcefully if they can.", "tip": "If they can cough or speak, their airway is partially open. Stay with them and encourage coughing.", "timer_seconds": 10 },
+    { "step_number": 2, "instruction": "Give 5 back blows. Stand behind, lean them forward. Strike firmly between the shoulder blades with the heel of your hand.", "tip": "Use enough force. Each blow should be a separate attempt to dislodge the object.", "timer_seconds": 15 },
+    { "step_number": 3, "instruction": "Give 5 abdominal thrusts (Heimlich maneuver). Stand behind, wrap arms around waist. Make a fist above the navel, below the ribcage. Pull sharply inward and upward.", "tip": "Quick upward thrust — like you're trying to lift them off the ground.", "timer_seconds": 15 },
+    { "step_number": 4, "instruction": "Alternate: 5 back blows → 5 abdominal thrusts. Repeat until the object is expelled or the person becomes unconscious.", "tip": "Check the mouth between cycles. Remove visible objects — never do a blind finger sweep.", "timer_seconds": 30 },
+    { "step_number": 5, "instruction": "If the person becomes unconscious, lower them to the ground. Call emergency services. Begin CPR — 30 compressions, check mouth, 2 breaths.", "tip": "Chest compressions may dislodge the object. Check the mouth before each rescue breath.", "timer_seconds": 30 }
+  ],
+  "when_to_stop": ["Object is expelled", "Person can breathe/cough/speak", "Person becomes unconscious — switch to CPR"],
+  "do_not": ["Do NOT do abdominal thrusts on pregnant women (use chest thrusts instead)", "Do NOT do blind finger sweeps", "Do NOT slap the back while the person is upright"]
+}

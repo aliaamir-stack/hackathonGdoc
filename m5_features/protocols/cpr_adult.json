@@ -1,0 +1,68 @@
+{
+  "id": "cpr_adult",
+  "title": "CPR — Adult (Age 12+)",
+  "category": "cardiac",
+  "severity_level": 5,
+  "call_ambulance": true,
+  "trigger_phrases": [
+    "not breathing", "stopped breathing", "no pulse", "heart stopped",
+    "unconscious not breathing", "cardiac arrest", "CPR", "heart attack no pulse",
+    "collapsed not breathing", "no heartbeat", "unresponsive not breathing"
+  ],
+  "immediate_action": "Call 1122 (Rescue) or 115 (Edhi) immediately. Begin CPR.",
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Check for responsiveness. Tap shoulders firmly and shout 'Are you okay?'",
+      "tip": "If no response, shout for help. Send someone to call emergency services and get an AED.",
+      "timer_seconds": 10
+    },
+    {
+      "step_number": 2,
+      "instruction": "Place the person on their back on a firm, flat surface.",
+      "tip": "If you suspect spinal injury, minimize movement. Roll them as a unit.",
+      "timer_seconds": 5
+    },
+    {
+      "step_number": 3,
+      "instruction": "Open the airway. Tilt the head back and lift the chin up.",
+      "tip": "Place one hand on the forehead and two fingers under the chin. Look, listen, and feel for breathing for no more than 10 seconds.",
+      "timer_seconds": 10
+    },
+    {
+      "step_number": 4,
+      "instruction": "Begin chest compressions. Place the heel of one hand on the center of the chest, between the nipples. Place the other hand on top and interlock fingers.",
+      "tip": "Keep your arms straight and shoulders directly over your hands.",
+      "timer_seconds": 5
+    },
+    {
+      "step_number": 5,
+      "instruction": "Push hard and fast: compress at least 2 inches deep at a rate of 100-120 compressions per minute. Give 30 compressions.",
+      "tip": "Push to the beat of 'Stayin' Alive' by the Bee Gees. Allow full chest recoil between compressions.",
+      "timer_seconds": 18
+    },
+    {
+      "step_number": 6,
+      "instruction": "Give 2 rescue breaths. Tilt head back, pinch nose shut, create seal over mouth, and blow for 1 second each. Watch for chest rise.",
+      "tip": "If you're untrained or uncomfortable, skip rescue breaths and do compression-only CPR.",
+      "timer_seconds": 6
+    },
+    {
+      "step_number": 7,
+      "instruction": "Continue cycles of 30 compressions and 2 breaths. Do NOT stop until help arrives, an AED is available, or the person starts breathing.",
+      "tip": "If another person is available, switch compressors every 2 minutes to avoid fatigue. Tired compressions are ineffective.",
+      "timer_seconds": 120
+    }
+  ],
+  "when_to_stop": [
+    "Paramedics arrive and take over",
+    "Person starts breathing normally",
+    "AED is attached and advises to stop",
+    "You become physically unable to continue"
+  ],
+  "do_not": [
+    "Do NOT give up — brain damage begins after 4 minutes without oxygen",
+    "Do NOT check for pulse if you are untrained",
+    "Do NOT move the person unless they are in danger"
+  ]
+}
