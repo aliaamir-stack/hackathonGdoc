@@ -1,0 +1,135 @@
+PULSE MedFact Shield -- Pakistani Myths Test Results
+======================================================================
+
+MYTH #1
+Claim   : Drinking lemon juice cures dengue fever and increases platelet count
+Context : Very common WhatsApp myth in Pakistan during dengue season
+Verdict : FALSE (expected: FALSE) [PASS]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 9.6s
+Summary : The claim that drinking lemon juice cures dengue fever and increases platelet count is false. The provided medical literature explicitly states that no specific antiviral medication is available for dengue. While vitamins, including Vitamin C (found in lemon juice), are discussed as potential supplements for managing dengue symptoms, there is no evidence that lemon juice cures the disease or directly increases platelet count.
+Safe advice: Dengue fever can be a serious illness. If you suspect you have dengue, it is crucial to seek immediate medical attention from a qualified healthcare professional. Do not rely on home remedies like lemon juice to treat or cure dengue, as this can delay proper medical care and lead to severe complications. Follow your doctor's advice for diagnosis, treatment, and management of dengue symptoms.
+Citations (1):
+  - Protective Role of Vitamins C, D, and K in the Management of Dengue: A Narrative
+    Finding: Still now, no specific antiviral medication is available against the disease. However, several vitamins have been identi
+
+----------------------------------------------------------------------
+
+MYTH #2
+Claim   : Haldi doodh (turmeric milk) cures COVID-19 and prevents coronavirus infection
+Context : Spread widely during COVID-19 pandemic in Pakistan
+Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 5.1s
+Summary : The provided medical literature does not contain any evidence or studies supporting the claim that Haldi doodh (turmeric milk) cures COVID-19 or prevents coronavirus infection. The context discusses other herbal medicines for COVID-19, antivirals for COVID-19, and curcumin's antiviral activity against Dengue virus, but not turmeric milk for COVID-19.
+Safe advice: If you suspect you have COVID-19 or want to prevent infection, please consult a qualified healthcare professional. Follow established medical guidelines for prevention, testing, and treatment, which may include vaccination, mask-wearing, social distancing, and prescribed antiviral medications if appropriate. Do not rely on unverified home remedies for serious medical conditions.
+
+----------------------------------------------------------------------
+
+MYTH #3
+Claim   : Taking Panadol (paracetamol) and Disprin (aspirin) together causes instant death
+Context : Dangerous myth that stops people from taking needed pain relief
+Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Confidence: 0.0
+Chunks retrieved: 5 | Time: 4.4s
+Summary : The provided medical literature does not contain any information regarding Panadol (paracetamol), Disprin (aspirin), or the effects of taking them together. Therefore, the claim that combining these medications causes instant death cannot be verified or refuted based on the given context.
+Safe advice: Always consult a qualified doctor or pharmacist before taking any medication, especially when considering combining different drugs. Do not rely on unverified information from social media for medical advice. If you have concerns about medication interactions, side effects, or your health, seek professional medical guidance immediately.
+
+----------------------------------------------------------------------
+
+MYTH #4
+Claim   : Drinking camel urine cures cancer and many serious diseases
+Context : Spread in religious contexts, dangerous as it can transmit MERS
+Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 4.9s
+Summary : The provided medical literature does not contain any information or evidence regarding the claim that drinking camel urine cures cancer or any other serious diseases. Therefore, this claim cannot be verified or refuted based on the given context.
+Safe advice: For any serious health concerns, including cancer, it is crucial to consult with a qualified medical doctor. Rely on evidence-based treatments and therapies recommended by healthcare professionals. Do not consume animal products like urine for medicinal purposes without clear scientific evidence and medical guidance, as it can be harmful and delay proper treatment.
+
+----------------------------------------------------------------------
+
+MYTH #5
+Claim   : Eating raw garlic every morning prevents and cures tuberculosis (TB)
+Context : Common in rural Pakistan, people delay proper TB treatment
+Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 5.3s
+Summary : The provided medical literature does not contain any information or evidence regarding the consumption of raw garlic, either for preventing or curing tuberculosis (TB). Therefore, this claim cannot be verified based on the given context.
+Safe advice: Tuberculosis is a serious infectious disease that requires professional medical diagnosis and a specific course of anti-tuberculosis therapy (ATT), usually involving multiple antibiotics over several months. If you suspect you have TB or have been diagnosed, it is crucial to follow your doctor's prescribed treatment plan and not rely on unproven home remedies. Consult a healthcare professional for proper diagnosis and treatment.
+
+----------------------------------------------------------------------
+
+MYTH #6
+Claim   : Applying toothpaste on burns heals them faster and prevents scarring
+Context : Extremely common home remedy - actually causes serious infections
+Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 5.0s
+Summary : The provided medical literature does not contain any information regarding the application of toothpaste on burns for healing or scar prevention. Therefore, this claim cannot be verified or refuted based on the given context.
+Safe advice: For any burn injury, it is crucial to seek immediate medical attention. Do not apply unproven remedies like toothpaste, as this can worsen the burn, introduce infection, or delay proper treatment. Cool the burn with clean, cool (not ice-cold) water for several minutes, cover it with a sterile, non-adhesive dressing, and consult a healthcare professional for appropriate care and advice on preventing scarring.
+
+----------------------------------------------------------------------
+
+MYTH #7
+Claim   : Black seed (kalonji) oil cures every disease including diabetes and heart disease
+Context : Based on Hadith misquotation, sells as a miracle cure in Pakistan
+Verdict : FALSE (expected: MISLEADING) [DIFF]
+Confidence: 1.0
+Chunks retrieved: 5 | Time: 19.9s
+Summary : The claim that black seed (kalonji) oil cures every disease, including diabetes and heart disease, is false. The provided medical literature does not mention black seed oil (kalonji) and instead focuses on the potential of other specific natural compounds and plant extracts for the management and alleviation of Type 2 Diabetes Mellitus and its complications, not for curing all diseases or even specific chronic conditions.
+Safe advice: Do not rely on unverified claims about 'cures' for serious diseases. For the diagnosis, treatment, and management of diabetes, heart disease, or any other health condition, always consult with a qualified healthcare professional. They can provide evidence-based medical advice and appropriate care.
+Citations (5):
+  - Harnessing Herbal Power: A Systematic Review of Phytopharmaceuticals in Type 2 D
+    Finding: This review discusses the effectiveness of herbal medicine and phytochemicals in treating Type 2 Diabetes Mellitus (T2DM
+  - Research Progress of Natural Compounds in the Treatment of Diabetes and Its Comp
+    Finding: This article systematically reviews the antidiabetic effects of five major natural compounds (resveratrol, curcumin, ber
+  - Synergistic antidiabetic effects of GC-MS profiled Prunus persica kernel extract
+    Finding: This study confirms *Prunus persica* kernel extracts and chromium picolinate as supplementation therapies in diabetes ma
+  - Aqueous Extract of Opuntia ficus-indica (L. Mill) Cladodes Demonstrates Antidiab
+    Finding: This study validates the traditional use of *Opuntia ficus-indica* extract and highlights its potential as a complementa
+  - Gentiopicroside Alleviates Type 2 Diabetes Mellitus by Ameliorating Hepatic Oxid
+    Finding: This study demonstrates that Gentiopicroside alleviates Type 2 Diabetes Mellitus by ameliorating hepatic oxidative stres
+
+----------------------------------------------------------------------
+
+MYTH #8
+Claim   : Children should not be vaccinated because vaccines cause autism
+Context : Major public health issue in Pakistan, causing polio outbreaks
+Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Confidence: 0.0
+Chunks retrieved: 5 | Time: 0.4s
+Summary : Unable to verify this claim due to a service error. Please consult a doctor.
+Safe advice: Please consult a qualified healthcare professional.
+
+----------------------------------------------------------------------
+
+MYTH #9
+Claim   : Drinking hot water with honey and ginger completely cures typhoid fever
+Context : People avoid antibiotics for typhoid and use this instead
+Verdict : UNVERIFIED (expected: FALSE) [DIFF]
+Confidence: 0.0
+Chunks retrieved: 5 | Time: 0.4s
+Summary : Unable to verify this claim due to a service error. Please consult a doctor.
+Safe advice: Please consult a qualified healthcare professional.
+
+----------------------------------------------------------------------
+
+MYTH #10
+Claim   : High fever in children should be treated with cold water baths and ice packs immediately
+Context : Dangerous advice -- can cause febrile seizures and shock
+Verdict : UNVERIFIED (expected: MISLEADING) [DIFF]
+Confidence: 0.0
+Chunks retrieved: 5 | Time: 0.4s
+Summary : Unable to verify this claim due to a service error. Please consult a doctor.
+Safe advice: Please consult a qualified healthcare professional.
+
+----------------------------------------------------------------------
+
+
+SUMMARY
+======================================================================
+Total myths tested: 10
+Matched expected verdict: 1/10
+Average confidence: 0.6
+Average citations per claim: 0.6
+Average response time: 5.5s

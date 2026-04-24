@@ -33,8 +33,8 @@ class GeminiClient:
     Free tier: 1M tokens/day, 15 req/min — use flash, not pro.
     """
 
-    TEXT_MODEL = "gemini-2.5-flash"
-    VISION_MODEL = "gemini-2.5-flash"
+    TEXT_MODEL = "gemini-2.0-flash-lite"
+    VISION_MODEL = "gemini-2.0-flash"  # lite doesn't support vision
 
     def __init__(self):
         self._text_model = genai.GenerativeModel(self.TEXT_MODEL)
@@ -65,9 +65,9 @@ class GeminiClient:
     def generate_json(self, prompt: str, system_prompt: str = None, temperature: float = 0.1) -> dict:
         """
         Generates a response and parses it as JSON.
-        Lower temperature for consistent structured output.
-        Strips markdown code fences if the model wraps with ```json```.
+        Retries automatically on 429 rate limit errors (up to 3 times).
         """
+        import time as _time
         generation_config = genai.types.GenerationConfig(
             temperature=temperature,
             response_mime_type="application/json",
@@ -85,14 +85,21 @@ class GeminiClient:
                 generation_config=generation_config,
             )
 
-        response = model.generate_content(prompt)
-        raw = response.text.strip()
-
-        # Strip markdown fences if present
-        raw = re.sub(r"^```(?:json)?\s*", "", raw)
-        raw = re.sub(r"\s*```$", "", raw)
-
-        return json.loads(raw)
+        for attempt in range(3):
+            try:
+                response = model.generate_content(prompt)
+                raw = response.text.strip()
+                raw = re.sub(r"^```(?:json)?\s*", "", raw)
+                raw = re.sub(r"\s*```$", "", raw)
+                return json.loads(raw)
+            except Exception as e:
+                err = str(e)
+                if "429" in err and attempt < 2:
+                    wait = 30 * (attempt + 1)
+                    print(f"[GeminiClient] Rate limited. Waiting {wait}s before retry {attempt+2}/3...")
+                    _time.sleep(wait)
+                else:
+                    raise
 
     def generate_stream(self, prompt: str, system_prompt: str = None) -> Generator[str, None, None]:
         """
