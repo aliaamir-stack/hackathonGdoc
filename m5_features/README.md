@@ -1,6 +1,6 @@
 # PULSE — Member 5: Features Engineer Module
 
-> Medicine Scanner · Emergency First Aid Guide · WhatsApp Emergency Alert
+> Medicine Scanner · Emergency First Aid Guide · Email Emergency Alert
 
 ## 🔬 Overview
 
@@ -8,7 +8,7 @@ This module implements three core PULSE features:
 
 1. **Medicine Scanner** — Photo → OpenCV preprocessing → Tesseract OCR → Gemini Vision AI → OpenFDA lookup → Drug interaction check
 2. **Emergency First Aid Guide** — Voice transcription → Protocol matching (keyword + AI) → Step-by-step instructions with TTS
-3. **WhatsApp Emergency Alert** — GPS coordinates → WhatsApp message with Google Maps link (via CallMeBot API)
+3. **Email Emergency Alert** — GPS coordinates → HTML email with Google Maps link (via Gmail SMTP)
 
 ## 📦 Project Structure
 
@@ -35,7 +35,7 @@ m5_features/
 ├── emergency/               # Emergency guide system
 │   ├── __init__.py
 │   ├── protocol_matcher.py  # Voice → protocol matching
-│   └── whatsapp_alert.py   # WhatsApp GPS alert service (CallMeBot)
+│   └── email_alert.py      # Email GPS alert service (Gmail SMTP)
 │
 ├── models/                  # Pydantic v2 schemas
 │   ├── __init__.py
@@ -68,7 +68,7 @@ m5_features/
     ├── __init__.py
     ├── test_scanner.py      # Scanner pipeline tests
     ├── test_emergency.py    # Emergency guide tests
-    └── test_whatsapp.py     # WhatsApp alert tests
+    └── test_email_alert.py  # Email alert tests
 ```
 
 ## 🚀 Quick Start
@@ -93,8 +93,8 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your values:
 # - GEMINI_API_KEY (from aistudio.google.com)
-# - WHATSAPP_PHONE (your number with country code)
-# - WHATSAPP_API_KEY (from CallMeBot — see .env.example for setup)
+# - ALERT_EMAIL (your Gmail address)
+# - ALERT_EMAIL_PASSWORD (Gmail App Password — see .env.example)
 ```
 
 ### 4. Run the Server
@@ -124,7 +124,7 @@ python -m pytest tests/ -v
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/emergency/identify` | Match text to protocol |
-| `POST` | `/api/emergency/alert` | Send WhatsApp GPS alert |
+| `POST` | `/api/emergency/alert` | Send Email GPS alert |
 | `GET` | `/api/emergency/protocols` | List all 15 protocols |
 | `GET` | `/api/emergency/protocols/{id}` | Get specific protocol |
 | `GET` | `/api/emergency/health` | Emergency service health |
@@ -136,7 +136,7 @@ python -m pytest tests/ -v
 | AI Engine | Google Gemini 1.5 Flash (Vision + Text) |
 | OCR | Tesseract OCR + OpenCV preprocessing |
 | Drug Data | OpenFDA API (free, no key) |
-| Alerts | WhatsApp via CallMeBot API (free) |
+| Alerts | Gmail SMTP (free, built-in Python) |
 | Framework | FastAPI + Pydantic v2 |
 | HTTP Client | httpx (async) |
 
