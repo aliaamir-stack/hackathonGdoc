@@ -93,7 +93,8 @@ Open [http://localhost:3000](http://localhost:3000)
 ### Demo
 
 
-- [Demo video & architecture diagram]
+- [Demo video & architecture diagram] ::
+  https://drive.google.com/drive/folders/1XX00TGHHttdE1H5vQlFzA7fqSNXHHdwM?usp=sharing
 
 ### Tech stack
 
