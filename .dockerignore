@@ -1,8 +1,70 @@
-.venv/
+# ============================================================
+# PULSE — .dockerignore
+# Prevents bloat from being sent to the Docker build context
+# ============================================================
+
+# --- Version control ---
+.git
+.gitignore
+
+# --- Python artifacts ---
 __pycache__/
+*.py[cod]
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# --- Environment secrets ---
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# --- Local database & schedules ---
 pulse.db
 celerybeat-schedule
-.env
-backend/.env
-.git/
+*.sqlite3
+*.db
+
+# --- Large data files (ingestion CSVs, not needed at runtime) ---
+datafiles/
+data/
+
+# --- ChromaDB (local vector DB, runs on devs' machines) ---
+backend/chroma_db/
+chroma_db/
+chroma.log
+
+# --- Test outputs & reports ---
+*.log
+.pytest_cache/
+htmlcov/
+.coverage
+test_triage_output.pdf
+myth_test_results.txt
+logs.txt
+
+# --- Test images ---
+test_pills/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Docker itself ---
+docker-compose.override.yml
+Dockerfile

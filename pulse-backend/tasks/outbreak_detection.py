@@ -49,18 +49,56 @@ async def _run_outbreak_detection_async():
         size = int(cluster.get("size", 1))
         centroid = cluster.get("centroid", [reports[0]["latitude"], reports[0]["longitude"]])
         district = reports[0].get("district")
+        
+        # Prophet Anomaly Detection
+        prophet_anomalies = []
+        try:
+            from ai.prophet_helper import OutbreakDetector
+            
+            # Get historical daily counts for this district
+            hist_res = await run_supabase(
+                client.table("symptom_reports")
+                .select("created_at")
+                .eq("district", district)
+                .execute
+            )
+            hist_reports = hist_res.data or []
+            
+            if len(hist_reports) > 60:
+                # Group by date
+                daily_counts = {}
+                for hr in hist_reports:
+                    date = hr['created_at'][:10]
+                    daily_counts[date] = daily_counts.get(date, 0) + 1
+                
+                ts_data = [{"date": k, "cases": v} for k, v in daily_counts.items()]
+                
+                detector = OutbreakDetector(location=district)
+                if detector.train(ts_data):
+                    # Check if today's count is anomalous
+                    prophet_anomalies = detector.detect_anomalies(ts_data)
+        except Exception as e:
+            print("Prophet failed:", e)
+
+        # Merge insights
+        description = "Automated DBSCAN cluster alert from recent symptom reports."
+        severity = _severity_from_size(size)
+        if prophet_anomalies and prophet_anomalies[-1]['is_anomaly']:
+            description += " PROPHET ANOMALY DETECTED: Spike in cases exceeds expected seasonal trends!"
+            severity = "critical"
+
         await run_supabase(
             client.table("outbreak_alerts")
             .insert(
                 {
-                    "source": "dbscan",
+                    "source": "dbscan+prophet",
                     "title": f"Cluster detected ({size} reports)",
-                    "description": "Automated DBSCAN cluster alert from recent symptom reports.",
+                    "description": description,
                     "latitude": centroid[0],
                     "longitude": centroid[1],
                     "district": district,
-                    "severity": _severity_from_size(size),
-                    "raw_data": {"cluster_size": size},
+                    "severity": severity,
+                    "raw_data": {"cluster_size": size, "prophet_anomaly": bool(prophet_anomalies)},
                 }
             )
             .execute

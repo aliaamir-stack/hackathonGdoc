@@ -13,8 +13,6 @@ class Settings(BaseSettings):
     REDIS_URL: str = ""
     JWT_SECRET: str = ""
     GEMINI_API_KEY: str = ""
-    TELEGRAM_BOT_TOKEN: str = ""
-    TELEGRAM_CHAT_ID: str = ""
     VERCEL_FRONTEND_URL: str = ""
 
 

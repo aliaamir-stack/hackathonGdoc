@@ -1,18 +1,3 @@
-# === AI / ML ===
-sentence-transformers
-chromadb
-langchain-community
-google-generativeai
-prophet
-plotly
-
-# === Data ===
-biopython
-requests
-pandas
-feedparser
-
-# === Backend ===
 fastapi
 uvicorn
 sqlalchemy
@@ -26,4 +11,12 @@ pydantic-settings
 httpx
 python-dotenv
 slowapi
+feedparser
 websockets
+google-generativeai
+pandas
+prophet
+plotly
+scikit-learn
+numpy
+requests

@@ -13,14 +13,14 @@ backend/.env
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyc
-*.pyo
-*.pyd
 *.so
 *.egg-info/
 dist/
 build/
 *.egg
+*.pyc
+*.pyo
+*.pyd
 
 # --- Virtual environments ---
 venv/
@@ -28,39 +28,39 @@ venv/
 env/
 ENV/
 
-# --- ChromaDB local data ---
-chroma_db/
-chroma.log
-
-# --- Database ---
-pulse.db
-celerybeat-schedule
-
-# --- Test outputs ---
-test_triage_output.pdf
-.pytest_cache/
-htmlcov/
-.coverage
-*.log
-
-# --- Test images ---
-test_pills/*.jpg
-test_pills/*.png
-test_pills/*.jpeg
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.user
 
 # --- OS files ---
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# --- IDE ---
-.vscode/
-.idea/
-*.suo
-*.user
-*.swp
-*.swo
-*~
+# --- Test outputs ---
+.pytest_cache/
+htmlcov/
+.coverage
+*.log
+test_triage_output.pdf
+
+# --- Database / Background ---
+pulse.db
+celerybeat-schedule
+
+# --- ChromaDB local data ---
+chroma_db/
+chroma.log
+
+# --- Test images ---
+test_pills/*.jpg
+test_pills/*.png
+test_pills/*.jpeg
 
 # --- Docker ---
 docker-compose.override.yml

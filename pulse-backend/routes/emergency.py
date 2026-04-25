@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException
-from telegram import Bot
 
 from config import get_settings
 from database import get_service_client, run_supabase
@@ -45,14 +44,12 @@ async def emergency_alert(payload: EmergencyAlertRequest) -> EmergencyAlertRespo
         f"Location: https://maps.google.com/?q={payload.latitude},{payload.longitude}"
     )
     try:
-        bot = Bot(token=settings.TELEGRAM_BOT_TOKEN)
-        sent = await bot.send_message(chat_id=settings.TELEGRAM_CHAT_ID, text=message)
         client = get_service_client()
         await run_supabase(
             client.table("outbreak_alerts")
             .insert(
                 {
-                    "source": "dbscan",
+                    "source": "emergency",
                     "title": f"Emergency: {payload.situation}",
                     "description": message,
                     "latitude": payload.latitude,
@@ -62,6 +59,6 @@ async def emergency_alert(payload: EmergencyAlertRequest) -> EmergencyAlertRespo
             )
             .execute
         )
-        return EmergencyAlertResponse(sent=True, telegram_message_id=sent.message_id)
+        return EmergencyAlertResponse(sent=True)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"emergency alert failed: {exc}") from exc
