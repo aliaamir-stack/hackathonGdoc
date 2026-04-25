@@ -1,3 +1,4 @@
+from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
@@ -6,7 +7,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
 from config import get_settings
-from database import get_anon_client, run_supabase
+from database import get_anon_client, get_service_client, run_supabase
 from models.schemas import LoginRequest, TokenResponse
 
 settings = get_settings()
@@ -15,6 +16,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_HOURS = 24
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def _create_access_token(subject: str) -> str:
     expire = datetime.now(timezone.utc) + timedelta(hours=TOKEN_EXPIRE_HOURS)
@@ -24,7 +26,8 @@ def _create_access_token(subject: str) -> str:
 
 @router.post("/login", response_model=TokenResponse)
 async def login(payload: LoginRequest) -> TokenResponse:
-    client = get_anon_client()
+    # Use service client to bypass RLS and find the user
+    client = get_service_client()
     try:
         result = await run_supabase(
             client.table("users")
@@ -35,11 +38,11 @@ async def login(payload: LoginRequest) -> TokenResponse:
         )
         records = result.data or []
         if not records:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials from Email")
 
         user = records[0]
         if payload.password != user["password_hash"]:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials from Password")
         token = _create_access_token(user["id"])
         return TokenResponse(access_token=token)
     except HTTPException:
