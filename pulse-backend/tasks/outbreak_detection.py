@@ -39,10 +39,20 @@ async def _run_outbreak_detection_async():
     coords = [[r["latitude"], r["longitude"]] for r in reports]
     clusters = []
     try:
-        from ai.outbreak import run_dbscan  # type: ignore
-
+        try:
+            from ai.outbreak import run_dbscan
+        except ImportError:
+            try:
+                from tasks.ai.outbreak import run_dbscan
+            except ImportError:
+                # Last resort: absolute import if pathing is weird
+                import sys
+                import os
+                sys.path.append(os.path.join(os.getcwd(), "pulse-backend"))
+                from ai.outbreak import run_dbscan
         clusters = run_dbscan(coords)
-    except Exception:
+    except Exception as e:
+        print(f"DBSCAN failed: {e}")
         clusters = [{"size": len(coords[: min(20, len(coords))]), "centroid": coords[0]}]
 
     for cluster in clusters:
@@ -53,7 +63,10 @@ async def _run_outbreak_detection_async():
         # Prophet Anomaly Detection
         prophet_anomalies = []
         try:
-            from ai.prophet_helper import OutbreakDetector
+            try:
+                from ai.prophet_helper import OutbreakDetector
+            except ImportError:
+                from .ai.prophet_helper import OutbreakDetector
             
             # Get historical daily counts for this district
             hist_res = await run_supabase(
@@ -91,7 +104,7 @@ async def _run_outbreak_detection_async():
             client.table("outbreak_alerts")
             .insert(
                 {
-                    "source": "dbscan+prophet",
+                    "source": "automated",
                     "title": f"Cluster detected ({size} reports)",
                     "description": description,
                     "latitude": centroid[0],
