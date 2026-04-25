@@ -92,10 +92,8 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### Demo
 
-**Live deployment:**
-- Backend API: [hackathon-kaali-aandhi-production.up.railway.app](https://hackathon-kaali-aandhi-production.up.railway.app)
-- Frontend: [hacka-thon-kaali-aandhi.vercel.app](https://hacka-thon-kaali-aandhi-rl2f1qs2k-aliaamir-stacks-projects.vercel.app)
-- [Demo video & architecture diagram](https://drive.google.com/drive/folders/1yNcNx1qq90ixjQCuYg12yF2gsyjZlXp_)
+
+- [Demo video & architecture diagram]
 
 ### Tech stack
 
