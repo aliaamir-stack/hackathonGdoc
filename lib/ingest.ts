@@ -1,7 +1,6 @@
 /**
- * POST multipart form: fields `image` (optional File) and `audio` (optional File).
- * Set NEXT_PUBLIC_INGEST_URL to your full backend URL (e.g. https://api.example.com/v1/prescriptions/ingest).
- * If unset, requests go to /api/ingest (local stub for development).
+ * Legacy multipart ingest (optional). Primary integration is Pulse REST — see `lib/pulse-api/client.ts`.
+ * `NEXT_PUBLIC_PULSE_API_BASE` — e.g. http://localhost:8000 (paths use /api/...).
  */
 export function getIngestUrl(): string {
   const base = process.env.NEXT_PUBLIC_INGEST_URL?.trim();

@@ -3,9 +3,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mic, Square, Trash2, Upload } from "lucide-react";
-import { getIngestUrl } from "@/lib/ingest";
+import { fileToBase64, postEmergencyIdentify, postMedicineScan } from "@/lib/pulse-api/client";
+import type { EmergencyIdentifyResponse, MedicineScanResponse } from "@/lib/pulse-api/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { MedicineEmergencyResults } from "@/components/ingest/analysis/medicine-emergency-results";
 
 const IMAGE_ACCEPT = "image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif";
 
@@ -34,6 +38,7 @@ export function PrescriptionIngest() {
 
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const audioUrl = useObjectUrl(audioBlob);
+  const [emergencyTranscript, setEmergencyTranscript] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recordMs, setRecordMs] = useState(0);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -44,7 +49,11 @@ export function PrescriptionIngest() {
 
   const [status, setStatus] = useState<"idle" | "uploading" | "success" | "error">("idle");
   const [message, setMessage] = useState<string | null>(null);
-  const [responseJson, setResponseJson] = useState<unknown>(null);
+
+  const [medicine, setMedicine] = useState<MedicineScanResponse | null>(null);
+  const [medicineError, setMedicineError] = useState<string | null>(null);
+  const [emergency, setEmergency] = useState<EmergencyIdentifyResponse | null>(null);
+  const [emergencyError, setEmergencyError] = useState<string | null>(null);
 
   const stopStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
@@ -127,57 +136,84 @@ export function PrescriptionIngest() {
 
   const clearImage = () => {
     setImageFile(null);
+    setMedicine(null);
+    setMedicineError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const clearAudio = () => {
     setAudioBlob(null);
     setRecordMs(0);
+    setEmergency(null);
+    setEmergencyError(null);
   };
 
-  const submit = async () => {
-    if (!imageFile && !audioBlob) {
-      setMessage("Add an image and/or record audio before sending.");
+  const audioFileName = audioBlob?.type.includes("mp4") ? "recording.m4a" : "recording.webm";
+
+  const runAnalysis = async () => {
+    if (!imageFile && !audioBlob && !emergencyTranscript.trim()) {
+      setMessage("Add an image, audio, and/or emergency transcript.");
       setStatus("error");
       return;
     }
+
     setStatus("uploading");
     setMessage(null);
-    setResponseJson(null);
+    setMedicine(null);
+    setMedicineError(null);
+    setEmergency(null);
+    setEmergencyError(null);
 
-    const form = new FormData();
-    if (imageFile) form.append("image", imageFile, imageFile.name);
-    if (audioBlob) {
-      const ext = audioBlob.type.includes("mp4") ? "m4a" : "webm";
-      form.append("audio", audioBlob, `prescription-audio.${ext}`);
-    }
+    const failures: string[] = [];
+    let anyOk = false;
 
     try {
-      const res = await fetch(getIngestUrl(), { method: "POST", body: form });
-      const text = await res.text();
-      let data: unknown = text;
-      try {
-        data = JSON.parse(text) as unknown;
-      } catch {
-        /* plain */
+      if (imageFile) {
+        const b64 = await fileToBase64(imageFile);
+        const mr = await postMedicineScan({ image_base64: b64 });
+        if (mr.ok) {
+          setMedicine(mr.data);
+          anyOk = true;
+        } else {
+          setMedicineError(mr.message);
+          failures.push(`Medicine: ${mr.message}`);
+        }
       }
-      setResponseJson(data);
-      if (!res.ok) {
+
+      if (audioBlob || emergencyTranscript.trim()) {
+        const er = await postEmergencyIdentify({
+          audio: audioBlob,
+          transcription: emergencyTranscript,
+          audioFileName,
+        });
+        if (er.ok) {
+          setEmergency(er.data);
+          anyOk = true;
+        } else {
+          setEmergencyError(er.message);
+          failures.push(`Emergency: ${er.message}`);
+        }
+      }
+
+      if (!anyOk && failures.length) {
         setStatus("error");
-        setMessage(
-          typeof data === "object" && data && "error" in data
-            ? String((data as { error: string }).error)
-            : `Request failed (${res.status})`,
-        );
+        setMessage(failures.join(" · "));
         return;
       }
+
       setStatus("success");
-      setMessage("Sent successfully.");
-    } catch {
+      setMessage(
+        failures.length ? `Completed with warnings — ${failures.join(" · ")}` : "Pulse analysis complete.",
+      );
+    } catch (e) {
       setStatus("error");
-      setMessage("Network error — check connection and NEXT_PUBLIC_INGEST_URL.");
+      setMessage(e instanceof Error ? e.message : "Analysis failed.");
     }
   };
+
+  const hasPartialVisual = Boolean(
+    medicine || medicineError || emergency || emergencyError,
+  );
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
@@ -195,7 +231,7 @@ export function PrescriptionIngest() {
             <div>
               <CardTitle className="font-display text-xl tracking-tight">Prescription image</CardTitle>
               <CardDescription className="font-mono text-[10px] uppercase tracking-wider text-3">
-                Drag & drop or browse — JPEG, PNG, WebP, HEIC
+                POST /api/medicine/scan — JSON image_base64
               </CardDescription>
             </div>
             {imageFile ? (
@@ -242,7 +278,7 @@ export function PrescriptionIngest() {
                   Drop photo here or tap to browse
                 </p>
                 <p className="mt-2 max-w-md text-center font-mono text-[10px] uppercase tracking-wider text-3">
-                  One legible frame of the full prescription
+                  Encoded client-side and sent to medicine/scan
                 </p>
               </>
             )}
@@ -254,9 +290,9 @@ export function PrescriptionIngest() {
         <CardHeader className="border-b border-border pb-4">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <CardTitle className="font-display text-xl tracking-tight">Clinician audio</CardTitle>
+              <CardTitle className="font-display text-xl tracking-tight">Emergency audio / transcript</CardTitle>
               <CardDescription className="font-mono text-[10px] uppercase tracking-wider text-3">
-                Optional dictation — sent as multipart with the image
+                POST /api/emergency/identify — multipart audio, then JSON fallbacks per client
               </CardDescription>
             </div>
             {audioBlob ? (
@@ -267,6 +303,17 @@ export function PrescriptionIngest() {
           </div>
         </CardHeader>
         <CardContent className="space-y-6 pt-6">
+          <div className="space-y-2">
+            <Label className="font-mono text-[10px] uppercase tracking-wider text-3">
+              Optional dispatch transcript
+            </Label>
+            <Textarea
+              value={emergencyTranscript}
+              onChange={(e) => setEmergencyTranscript(e.target.value)}
+              placeholder="Paste emergency call transcription if your API expects text…"
+              className="min-h-[80px] font-mono text-sm"
+            />
+          </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
             <div className="text-center sm:text-left">
               {isRecording ? (
@@ -279,7 +326,7 @@ export function PrescriptionIngest() {
                 </p>
               ) : (
                 <p className="max-w-md font-mono text-[10px] uppercase leading-relaxed tracking-wider text-3">
-                  Capture voice notes; preview plays below after stop.
+                  Record audio for identify, or paste a transcript above.
                 </p>
               )}
             </div>
@@ -315,15 +362,15 @@ export function PrescriptionIngest() {
         </CardContent>
         <CardFooter className="flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-[10px] uppercase tracking-wider text-3">
-            POST → <span className="text-vital">{getIngestUrl()}</span>
+            Requires at least one of: image, audio, transcript
           </p>
           <Button
             type="button"
-            disabled={status === "uploading" || (!imageFile && !audioBlob)}
-            onClick={submit}
+            disabled={status === "uploading" || (!imageFile && !audioBlob && !emergencyTranscript.trim())}
+            onClick={() => void runAnalysis()}
             className="w-full bg-foreground font-mono text-[10px] uppercase tracking-wider text-background hover:bg-foreground/90 sm:w-auto"
           >
-            {status === "uploading" ? "Sending…" : "Send to backend"}
+            {status === "uploading" ? "Calling Pulse API…" : "Run Pulse analysis"}
           </Button>
         </CardFooter>
       </Card>
@@ -347,13 +394,13 @@ export function PrescriptionIngest() {
         ) : null}
       </AnimatePresence>
 
-      {responseJson != null && status === "success" ? (
-        <details className="rounded-md border border-border bg-surface/40 p-4 font-mono text-xs text-2">
-          <summary className="cursor-pointer uppercase tracking-wider text-foreground">Response body</summary>
-          <pre className="mt-3 max-h-48 overflow-auto rounded-sm bg-bg-deep p-3 text-[10px] leading-relaxed text-vital">
-            {JSON.stringify(responseJson, null, 2)}
-          </pre>
-        </details>
+      {hasPartialVisual ? (
+        <MedicineEmergencyResults
+          medicine={medicine}
+          medicineError={medicineError}
+          emergency={emergency}
+          emergencyError={emergencyError}
+        />
       ) : null}
     </div>
   );
